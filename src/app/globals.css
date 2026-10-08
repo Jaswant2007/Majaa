@@ -6,26 +6,23 @@
 
 @layer base {
   :root {
-    /* === EXACT REQUIRED DESIGN TOKENS (LIGHT MODE) === */
-    --color-primary: hsl(122, 50%, 90%);    /* page + surface background */
-    --color-secondary: hsl(122, 50%, 10%);  /* main text colour */
-    --color-tertiary: hsl(182, 80%, 20%);   /* personality colour: headings emphasis, secondary buttons, borders, icons, links */
-    --color-accent: hsl(62, 80%, 20%);      /* highlights: important elements, key numbers/words, primary CTA buttons, slider/active states */
+    /* === Light theme === */
+    --color-primary: hsl(210, 20%, 97%);
+    --color-secondary: hsl(210, 17%, 16%);
+    --color-tertiary: hsl(158, 34%, 35%);
+    --color-accent: hsl(39, 68%, 43%);
 
-    /* Distinguishable surface panels (tints of primary, hue 122, mixed lightness) */
-    --surface-card: hsl(122, 45%, 93%);
-    --surface-card-subtle: hsl(122, 40%, 87%);
-    --border-color: hsla(122, 50%, 10%, 0.15);
-    --border-subtle: hsla(122, 50%, 10%, 0.10);
+    --surface-card: hsl(0, 0%, 100%);
+    --surface-card-subtle: hsl(210, 18%, 94%);
+    --border-color: hsla(210, 17%, 16%, 0.14);
+    --border-subtle: hsla(210, 17%, 16%, 0.09);
 
-    /* Text Brightness / Opacity */
-    --text-primary: hsla(122, 50%, 10%, 0.95);
-    --text-secondary: hsla(122, 50%, 10%, 0.70);
-    --text-muted: hsla(122, 50%, 10%, 0.50);
+    --text-primary: hsla(210, 17%, 16%, 0.95);
+    --text-secondary: hsla(210, 17%, 16%, 0.68);
+    --text-muted: hsla(210, 17%, 16%, 0.48);
 
-    /* Text on filled buttons */
-    --color-on-accent: hsl(122, 50%, 90%);
-    --color-on-tertiary: hsl(122, 50%, 90%);
+    --color-on-accent: hsl(0, 0%, 100%);
+    --color-on-tertiary: hsl(0, 0%, 100%);
 
     /* Typography Scale: 3 Sizes + 24px Hero Title Exception */
     --fs-hero: 1.5rem;    /* 24px: single hero title exception (weight 800) */
@@ -33,93 +30,86 @@
     --fs-base: 1rem;      /* 16px: base body copy, inputs, nav links */
     --fs-sm: 0.875rem;    /* 14px: supporting text, captions, metadata, tags */
 
-    /* Soft shadows tinted with secondary at low opacity */
-    --shadow-sm: 0 1px 3px hsla(122, 50%, 10%, 0.08);
-    --shadow-md: 0 4px 16px -2px hsla(122, 50%, 10%, 0.10);
-    --shadow-lg: 0 8px 30px -4px hsla(122, 50%, 10%, 0.12);
+    --shadow-sm: 0 1px 3px hsla(210, 17%, 16%, 0.08);
+    --shadow-md: 0 4px 16px -2px hsla(210, 17%, 16%, 0.10);
+    --shadow-lg: 0 8px 30px -4px hsla(210, 17%, 16%, 0.12);
 
-    /* Status Colors strictly derived from Tertiary & Accent */
-    --status-success: hsl(182, 80%, 20%);
-    --status-warning: hsl(62, 80%, 20%);
-    --status-danger: hsl(62, 80%, 20%);
-    --status-info: hsl(182, 80%, 20%);
+    --status-success: hsl(158, 44%, 35%);
+    --status-warning: hsl(39, 76%, 43%);
+    --status-danger: hsl(4, 65%, 48%);
+    --status-info: hsl(195, 65%, 40%);
 
     /* Tailwind CSS HSL mapping */
-    --background: 122 50% 90%;
-    --foreground: 122 50% 10%;
-    --card: 122 45% 93%;
-    --card-foreground: 122 50% 10%;
-    --popover: 122 45% 93%;
-    --popover-foreground: 122 50% 10%;
-    --primary: 122 50% 90%;
-    --primary-foreground: 122 50% 10%;
-    --secondary: 122 50% 10%;
-    --secondary-foreground: 122 50% 90%;
-    --muted: 122 40% 87%;
-    --muted-foreground: 122 50% 10%;
-    --accent: 62 80% 20%;
-    --accent-foreground: 122 50% 90%;
-    --destructive: 62 80% 20%;
-    --destructive-foreground: 122 50% 90%;
-    --border: 122 50% 10%;
-    --input: 122 45% 93%;
-    --ring: 62 80% 20%;
+    --background: 210 20% 97%;
+    --foreground: 210 17% 16%;
+    --card: 0 0% 100%;
+    --card-foreground: 210 17% 16%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 17% 16%;
+    --primary: 158 34% 35%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 18% 94%;
+    --secondary-foreground: 210 17% 16%;
+    --muted: 210 18% 94%;
+    --muted-foreground: 210 10% 43%;
+    --accent: 39 68% 43%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 4 65% 48%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 16% 87%;
+    --input: 0 0% 100%;
+    --ring: 158 34% 35%;
     --radius: 0.75rem;
   }
 
   .dark {
-    /* === EXACT REQUIRED DESIGN TOKENS (DARK MODE) === */
-    --color-primary: hsl(122, 50%, 10%);    /* page + surface background */
-    --color-secondary: hsl(122, 50%, 90%);  /* main text colour */
-    --color-tertiary: hsl(182, 80%, 80%);
-    --color-accent: hsl(62, 80%, 80%);
+    /* === Dark theme === */
+    --color-primary: hsl(155, 12%, 10%);
+    --color-secondary: hsl(150, 8%, 92%);
+    --color-tertiary: hsl(158, 26%, 67%);
+    --color-accent: hsl(39, 62%, 67%);
 
-    /* Distinguishable surface panels (tints of primary, hue 122, mixed lightness) */
-    --surface-card: hsl(122, 45%, 12%);
-    --surface-card-subtle: hsl(122, 40%, 15%);
-    --border-color: hsla(122, 50%, 90%, 0.15);
-    --border-subtle: hsla(122, 50%, 90%, 0.10);
+    --surface-card: hsl(155, 10%, 14%);
+    --surface-card-subtle: hsl(155, 9%, 18%);
+    --border-color: hsla(150, 12%, 88%, 0.14);
+    --border-subtle: hsla(150, 12%, 88%, 0.09);
 
-    /* Text Brightness / Opacity */
-    --text-primary: hsla(122, 50%, 90%, 0.95);
-    --text-secondary: hsla(122, 50%, 90%, 0.70);
-    --text-muted: hsla(122, 50%, 90%, 0.50);
+    --text-primary: hsla(150, 8%, 92%, 0.95);
+    --text-secondary: hsla(150, 8%, 88%, 0.68);
+    --text-muted: hsla(150, 8%, 88%, 0.48);
 
-    /* Text on filled buttons */
-    --color-on-accent: hsl(122, 50%, 10%);
-    --color-on-tertiary: hsl(122, 50%, 10%);
+    --color-on-accent: hsl(155, 12%, 10%);
+    --color-on-tertiary: hsl(155, 12%, 10%);
 
-    /* Soft shadows tinted with secondary at low opacity */
-    --shadow-sm: 0 1px 3px hsla(122, 50%, 90%, 0.05);
-    --shadow-md: 0 4px 20px -2px hsla(122, 50%, 90%, 0.08);
-    --shadow-lg: 0 8px 32px -4px hsla(122, 50%, 90%, 0.12);
+    --shadow-sm: 0 1px 3px hsla(155, 12%, 3%, 0.18);
+    --shadow-md: 0 4px 20px -2px hsla(155, 12%, 3%, 0.24);
+    --shadow-lg: 0 8px 32px -4px hsla(155, 12%, 3%, 0.30);
 
-    /* Status Colors strictly derived from Tertiary & Accent */
-    --status-success: hsl(182, 80%, 80%);
-    --status-warning: hsl(62, 80%, 80%);
-    --status-danger: hsl(62, 80%, 80%);
-    --status-info: hsl(182, 80%, 80%);
+    --status-success: hsl(158, 38%, 58%);
+    --status-warning: hsl(39, 68%, 66%);
+    --status-danger: hsl(4, 68%, 66%);
+    --status-info: hsl(195, 56%, 68%);
 
     /* Tailwind CSS HSL mapping */
-    --background: 122 50% 10%;
-    --foreground: 122 50% 90%;
-    --card: 122 45% 12%;
-    --card-foreground: 122 50% 90%;
-    --popover: 122 45% 12%;
-    --popover-foreground: 122 50% 90%;
-    --primary: 122 50% 10%;
-    --primary-foreground: 122 50% 90%;
-    --secondary: 122 50% 90%;
-    --secondary-foreground: 122 50% 10%;
-    --muted: 122 40% 15%;
-    --muted-foreground: 122 50% 90%;
-    --accent: 62 80% 80%;
-    --accent-foreground: 122 50% 10%;
-    --destructive: 62 80% 80%;
-    --destructive-foreground: 122 50% 10%;
-    --border: 122 50% 90%;
-    --input: 122 45% 12%;
-    --ring: 62 80% 80%;
+    --background: 155 12% 10%;
+    --foreground: 150 8% 92%;
+    --card: 155 10% 14%;
+    --card-foreground: 150 8% 92%;
+    --popover: 155 10% 14%;
+    --popover-foreground: 150 8% 92%;
+    --primary: 158 26% 67%;
+    --primary-foreground: 155 12% 10%;
+    --secondary: 155 9% 18%;
+    --secondary-foreground: 150 8% 92%;
+    --muted: 155 9% 18%;
+    --muted-foreground: 150 5% 70%;
+    --accent: 39 62% 67%;
+    --accent-foreground: 155 12% 10%;
+    --destructive: 4 68% 66%;
+    --destructive-foreground: 155 12% 10%;
+    --border: 150 12% 88%;
+    --input: 155 10% 14%;
+    --ring: 158 26% 67%;
   }
 }
 
@@ -272,7 +262,7 @@ small {
 }
 
 .dark .btn-secondary:hover {
-  background-color: hsla(182, 80%, 80%, 0.12);
+  background-color: hsla(158, 26%, 67%, 0.12);
 }
 
 /* === Input Design System === */
@@ -301,7 +291,7 @@ small {
 
 .dark .input-field:focus {
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px hsla(62, 80%, 80%, 0.25);
+  box-shadow: 0 0 0 3px hsla(39, 62%, 67%, 0.25);
 }
 
 /* === Utility: Animations & Interactive Hovering === */
@@ -325,13 +315,13 @@ small {
 }
 
 .animate-shimmer {
-  background: linear-gradient(90deg, hsla(122, 50%, 90%, 0.02) 25%, hsla(122, 50%, 90%, 0.08) 50%, hsla(122, 50%, 90%, 0.02) 75%);
+  background: linear-gradient(90deg, hsla(210, 17%, 16%, 0.02) 25%, hsla(210, 17%, 16%, 0.08) 50%, hsla(210, 17%, 16%, 0.02) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.8s infinite;
 }
 
 .dark .animate-shimmer {
-  background: linear-gradient(90deg, hsla(122, 50%, 10%, 0.02) 25%, hsla(122, 50%, 90%, 0.08) 50%, hsla(122, 50%, 10%, 0.02) 75%);
+  background: linear-gradient(90deg, hsla(155, 12%, 10%, 0.02) 25%, hsla(150, 8%, 92%, 0.08) 50%, hsla(155, 12%, 10%, 0.02) 75%);
   background-size: 200% 100%;
 }
 
