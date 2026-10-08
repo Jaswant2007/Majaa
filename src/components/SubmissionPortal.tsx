@@ -302,7 +302,7 @@ export default function SubmissionPortal({ onSubmissionComplete, suppliers: init
               className={`p-3.5 rounded-xl border text-left cursor-pointer transition card-hover ${
                 selectedPreset.id === p.id
                   ? "bg-slate-900 border-emerald-500/80 ring-1 ring-emerald-500/50 shadow-lg shadow-emerald-500/10"
-                  : "bg-slate-950/60 border-slate-800 hover:border-slate-700"
+                  : "bg-slate-950 border-slate-800 hover:border-slate-700"
               }`}
             >
               <div className="flex items-center justify-between mb-1">
@@ -344,7 +344,7 @@ export default function SubmissionPortal({ onSubmissionComplete, suppliers: init
                     ? "bg-emerald-500/20 border-emerald-400 text-emerald-300 ring-1 ring-emerald-400"
                     : isCompleted
                     ? "bg-slate-900 border-emerald-800/80 text-emerald-400"
-                    : "bg-slate-950/60 border-slate-800/60 text-slate-600"
+                    : "bg-slate-950 border-slate-800 text-slate-300"
                 }`}
               >
                 <div className="flex items-center space-x-1 mb-0.5">
@@ -374,7 +374,7 @@ export default function SubmissionPortal({ onSubmissionComplete, suppliers: init
             value={customText}
             onChange={(e) => setCustomText(e.target.value)}
             rows={12}
-            className="w-full rounded-xl bg-slate-950/90 border border-slate-800 p-3.5 font-mono text-xs text-slate-200 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition resize-none leading-relaxed"
+            className="w-full rounded-xl bg-slate-950 border border-slate-800 p-3.5 font-mono text-xs text-slate-200 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition resize-none leading-relaxed"
           />
         </div>
 
@@ -489,7 +489,7 @@ export default function SubmissionPortal({ onSubmissionComplete, suppliers: init
               )}
             </div>
           ) : (
-            <div className="h-full min-h-[280px] p-8 rounded-xl bg-slate-950/40 border border-slate-800/80 flex flex-col items-center justify-center text-center text-xs text-slate-500">
+            <div className="h-full min-h-[280px] p-8 rounded-xl bg-slate-950 border border-slate-800 flex flex-col items-center justify-center text-center text-xs text-slate-500">
               <Zap className="h-8 w-8 text-emerald-500/40 mb-3" />
               <p className="font-semibold text-slate-400">Pipeline Ready for Execution</p>
               <p className="text-slate-500 max-w-xs mt-1">
