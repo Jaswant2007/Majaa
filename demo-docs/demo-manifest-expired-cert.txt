@@ -1,0 +1,28 @@
+================================================================================
+                    INTERNATIONAL CROSS-BORDER FREIGHT MANIFEST
+                         TRANS-EURASIA FREIGHT CORP
+================================================================================
+Manifest ID:       MNF-TE-2024-EXP01
+Shipper / Vendor:  Trans-Eurasia Freight Corp
+Registration No:   PL-KRS-0000918273
+Origin Location:   Warsaw Intermodal Logistics Terminal, Poland
+Destination:       Rotterdam Europoort Cargo Hub, Netherlands
+Transport Mode:    ROAD
+Fuel Type:         DIESEL
+Vehicle Unit:      PL-HGV-9941 (Heavy Diesel Articulated Tractor)
+Gross Cargo Weight: 38200 kg (38.2 Metric Tonnes)
+Transit Distance:  1150 km
+Consignment Type:  Heavy Industrial Castings & Structural Assemblies
+Shipment Date:     2024-10-08
+
+--------------------------------------------------------------------------------
+                     ESG & ENVIRONMENTAL AUDIT SECTION
+--------------------------------------------------------------------------------
+Compliance Ref:    CERT-ECO-TE-8812
+Certificate Type:  ISO_14064 (GHG Verification)
+Issuing Authority: DEKRA Certification Poland
+Issue Date:        2022-02-01
+Expiry Date:       2024-02-01  *** EXPIRED ***
+Certification Status: EXPIRED - AUDIT LAPSED
+Declaration:       Trans-Eurasia self-declaration (Uncertified freight).
+================================================================================

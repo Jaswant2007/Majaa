@@ -1,0 +1,28 @@
+================================================================================
+                   OFFICIAL GREEN FREIGHT CONSIGNMENT MANIFEST
+                         APEX GLOBAL LOGISTICS BV
+================================================================================
+Manifest ID:       MNF-APX-2024-EV02
+Shipper / Vendor:  Apex Global Logistics BV
+Registration No:   NL-KVK-88491021
+Origin Location:   Rotterdam Port Automated Terminal, Netherlands
+Destination:       Brussels Green Cargo Center, Belgium
+Transport Mode:    ROAD
+Fuel Type:         ELECTRIC
+Vehicle Unit:      NL-EV-FREIGHT-08 (40-Tonne Battery Electric HGV)
+Gross Cargo Weight: 42000 kg (42.0 Metric Tonnes)
+Transit Distance:  165 km
+Consignment Type:  Recycled Pulp & Bio-Polymer Packaging Materials
+Shipment Date:     2024-10-08
+
+--------------------------------------------------------------------------------
+                     ESG & ENVIRONMENTAL AUDIT SECTION
+--------------------------------------------------------------------------------
+Compliance Ref:    CERT-ISO-14064-APEX-2024
+Certificate Type:  ISO_14064 (GHG Verification)
+Issuing Authority: TÜV Rheinland Nederland
+Issue Date:        2024-01-15
+Expiry Date:       2027-01-14
+Certification Status: ACTIVE / ACCREDITED
+Declaration:       Primary activity data verified under EN 16258 / GLEC Framework.
+================================================================================

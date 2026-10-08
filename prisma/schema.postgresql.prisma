@@ -1,0 +1,140 @@
+// To use Supabase PostgreSQL:
+// Copy this file over schema.prisma and run `npx prisma db push`
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Supplier {
+  id                      String   @id @default(cuid())
+  name                    String
+  code                    String   @unique
+  tier                    Int      // 1, 2, or 3
+  country                 String
+  industry                String
+  contactEmail            String
+  rating                  String   @default("A") // A, B, C, D, F
+  score                   Float    @default(90.0) // 0-100 ESG Integrity Score
+  status                  String   @default("VERIFIED") // VERIFIED, REQUIRES_REVIEW, HIGH_RISK, BLACKLISTED
+  isBlacklisted           Boolean  @default(false)
+  blacklistReason         String?
+  totalScope3EmissionsKg  Float    @default(0.0)
+  verifiedEmissionsKg     Float    @default(0.0)
+  flaggedViolationsCount  Int      @default(0)
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  documents               Document[]
+  shipments               Shipment[]
+  certificates            ComplianceCertificate[]
+  alerts                  ComplianceAlert[]
+  auditLogs               AuditLog[]
+}
+
+model EmissionFactor {
+  id                  String   @id @default(cuid())
+  activityType        String   // FREIGHT_ROAD, FREIGHT_RAIL, FREIGHT_AIR, FREIGHT_SEA, ELECTRICITY_GRID
+  mode                String   // ROAD, RAIL, AIR, SEA, ELECTRICITY
+  fuelType            String   // DIESEL, ELECTRIC, JET_A1, HEAVY_FUEL_OIL, GRID_AVERAGE, HYDROGEN
+  factorKgCO2ePerUnit Float    // kg CO2e / tonne-km or kg CO2e / kWh
+  unit                String   // kg_CO2e_per_tonne_km, kg_CO2e_per_kwh
+  source              String   // DEFRA 2024, EPA GHG Hub 2024, GLEC Framework v3
+  effectiveYear       Int      @default(2024)
+  notes               String?
+  createdAt           DateTime @default(now())
+}
+
+model Document {
+  id              String   @id @default(cuid())
+  supplierId      String
+  supplier        Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  filename        String
+  fileUrl         String
+  fileSize        Int
+  docType         String   // LOGISTICS_MANIFEST, UTILITY_BILL, COMPLIANCE_CERT, AUDIT_REPORT
+  status          String   @default("UNVERIFIED") // UNVERIFIED, PROCESSING, EXTRACTED, VALIDATION_FAILED, REQUIRES_REVIEW, VERIFIED, REJECTED
+  sha256Hash      String
+  rawContent      String?
+  extractedJson   String?  // Validated Zod JSON payload
+  validationNotes String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  shipments       Shipment[]
+  alerts          ComplianceAlert[]
+  certificates    ComplianceCertificate[]
+}
+
+model Shipment {
+  id                       String    @id @default(cuid())
+  supplierId               String
+  supplier                 Supplier  @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  documentId               String?
+  document                 Document? @relation(fields: [documentId], references: [id], onDelete: SetNull)
+  manifestId               String
+  origin                   String
+  destination              String
+  distanceKm               Float
+  weightTonnes             Float
+  transportMode            String    // ROAD, RAIL, AIR, SEA
+  fuelType                 String    // DIESEL, ELECTRIC, JET_A1, HEAVY_FUEL_OIL, etc.
+  emissionFactorId         String?
+  factorApplied            Float     // Deterministic factor captured
+  calculatedEmissionKgCO2e Float     // Activity data * Factor
+  formulaUsed              String    // distanceKm * weightTonnes * factorApplied
+  verificationStatus       String    @default("PENDING") // PENDING, VERIFIED, FLAGGED
+  createdAt                DateTime  @default(now())
+}
+
+model ComplianceCertificate {
+  id                String    @id @default(cuid())
+  supplierId        String
+  supplier          Supplier  @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  documentId        String?
+  document          Document? @relation(fields: [documentId], references: [id], onDelete: SetNull)
+  certNumber        String
+  certType          String    // ISO_14064, ISO_50001, GOTS, ECOVADIS, FAIR_LABOR
+  issuer            String
+  issueDate         DateTime
+  expiryDate        DateTime
+  isValid           Boolean   @default(true)
+  status            String    @default("ACTIVE") // ACTIVE, EXPIRED, SUSPENDED, FORGED
+  verificationNotes String?
+  createdAt         DateTime  @default(now())
+}
+
+model ComplianceAlert {
+  id                  String    @id @default(cuid())
+  supplierId          String
+  supplier            Supplier  @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  documentId          String?
+  document            Document? @relation(fields: [documentId], references: [id], onDelete: SetNull)
+  severity            String    // CRITICAL, WARNING, INFO
+  alertType           String    // EXPIRED_CERT, BLACKLIST_HIT, IDENTITY_MISMATCH, UNUSUAL_FACTOR, TAMPER_DETECTED
+  title               String
+  evidence            String    // Strict explainable evidence citing exact identifiers
+  isResolved          Boolean   @default(false)
+  resolvedBy          String?
+  resolvedAt          DateTime?
+  createdAt           DateTime  @default(now())
+}
+
+model AuditLog {
+  id            String    @id @default(cuid())
+  supplierId    String?
+  supplier      Supplier? @relation(fields: [supplierId], references: [id], onDelete: SetNull)
+  entityType    String    // DOCUMENT, SHIPMENT, CERTIFICATE, SUPPLIER, CALCULATION
+  entityId      String
+  action        String    // UPLOADED, EXTRACTED, CALCULATED, AUDITED, FLAGGED, VERIFIED, REJECTED, RATING_UPDATED
+  actorRole     String    @default("SYSTEM_AUDITOR") // SUPPLIER_PORTAL, SYSTEM_AUDITOR, ESG_OFFICER, ADMIN
+  previousState String?
+  newState      String?
+  evidence      String?
+  entryHash     String    // SHA-256 tamper-evident digest
+  prevHash      String?   // Hash link to prior ledger block
+  timestamp     DateTime  @default(now())
+}

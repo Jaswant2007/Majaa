@@ -1,0 +1,28 @@
+================================================================================
+                    SUB-TIER MINERAL CONSIGNMENT DISPATCH NOTE
+                       UNVERIFIED EXTRACTION SYNDICATE
+================================================================================
+Manifest ID:       MNF-MISMATCH-9901
+Shipper / Vendor:  Katanga Raw Mineral Syndicate (Sanctioned Origin)
+Registration No:   CD-RCCM-18-B-0982
+Origin Location:   Kolwezi Mining Depot, Katanga Province, DR Congo
+Destination:       Dar es Salaam Port Cargo Terminal, Tanzania
+Transport Mode:    ROAD
+Fuel Type:         DIESEL
+Vehicle Unit:      TZ-HAUL-8812 (Unregistered Long-Haul Truck)
+Gross Cargo Weight: 85000 kg (85.0 Metric Tonnes)
+Transit Distance:  2400 km
+Consignment Type:  Raw Artisanal Cobalt Ore & Copper Concentrate
+Shipment Date:     2024-10-08
+
+--------------------------------------------------------------------------------
+                     ESG & ENVIRONMENTAL AUDIT SECTION
+--------------------------------------------------------------------------------
+Compliance Ref:    CERT-FORGED-KT-900
+Certificate Type:  ISO_14064 (GHG Verification)
+Issuing Authority: Unaccredited Shell Authority
+Issue Date:        2021-01-01
+Expiry Date:       2023-01-01  *** INVALID / FORGED ***
+Certification Status: FORGED - NON-ACCREDITED
+Declaration:       Uploaded under Zambezi Cooperative account (Identity Mismatch).
+================================================================================

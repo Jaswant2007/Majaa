@@ -1,0 +1,270 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 1. Enterprise Model
+model Enterprise {
+  id             String     @id @default(cuid())
+  name           String
+  registrationNo String     @unique
+  country        String
+  industry       String
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  users          User[]
+  suppliers      Supplier[]
+}
+
+// 2. User & RBAC Model
+model User {
+  id           String      @id @default(cuid())
+  email        String      @unique
+  name         String
+  role         String      @default("ENTERPRISE_ADMIN")
+  passwordHash String
+  enterpriseId String?
+  enterprise   Enterprise? @relation(fields: [enterpriseId], references: [id], onDelete: Cascade)
+  supplierId   String?
+  supplier     Supplier?   @relation(fields: [supplierId], references: [id], onDelete: SetNull)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  documents    Document[]  @relation("UploadedByUser")
+
+  @@index([email])
+  @@index([role])
+}
+
+// 3. Supplier with Multi-Tier Lineage
+model Supplier {
+  id               String       @id @default(cuid())
+  enterpriseId     String
+  enterprise       Enterprise   @relation(fields: [enterpriseId], references: [id], onDelete: Cascade)
+  name             String
+  normalizedName   String
+  registrationNo   String       @unique
+  tier             Int          // 1, 2, or 3
+  parentSupplierId String?
+  parentSupplier   Supplier?    @relation("SupplierHierarchy", fields: [parentSupplierId], references: [id], onDelete: SetNull)
+  subSuppliers     Supplier[]   @relation("SupplierHierarchy")
+  country          String
+  status           String       @default("VERIFIED") // VERIFIED, REQUIRES_REVIEW, HIGH_RISK, BLACKLISTED
+  trustScore       Float        @default(90.0) // 0 - 100
+  blacklisted      Boolean      @default(false)
+  lastVerifiedAt   DateTime?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  users            User[]
+  documents        Document[]
+  shipments        Shipment[]
+  certificates     Certificate[]
+  riskScores       RiskScore[]
+  alerts           Alert[]
+
+  @@index([enterpriseId])
+  @@index([tier])
+  @@index([status])
+  @@index([normalizedName])
+}
+
+// 4. Zero-Trust Document Model with Versioning
+model Document {
+  id                   String        @id @default(cuid())
+  supplierId           String
+  supplier             Supplier      @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  filename             String
+  mimeType             String
+  size                 Int
+  storagePath          String
+  sha256Hash           String
+  uploadedBy           String?
+  uploader             User?         @relation("UploadedByUser", fields: [uploadedBy], references: [id], onDelete: SetNull)
+  uploadedAt           DateTime      @default(now())
+  processingStatus     String        @default("UNVERIFIED") // UNVERIFIED, PROCESSING, EXTRACTED, VALIDATION_FAILED
+  verificationStatus   String        @default("PENDING") // PENDING, REQUIRES_REVIEW, VERIFIED, REJECTED
+  extractionConfidence Float         @default(0.0)
+  version              Int           @default(1)
+  parentDocId          String?
+  parentDoc            Document?     @relation("DocumentVersions", fields: [parentDocId], references: [id], onDelete: SetNull)
+  subsequentVersions   Document[]    @relation("DocumentVersions")
+  extractedJson        String?
+  validationNotes      String?
+  reviewedBy           String?
+  reviewedAt           DateTime?
+  reviewDecisionReason String?
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+
+  shipments            Shipment[]
+  certificates         Certificate[]
+  alerts               Alert[]
+
+  @@index([supplierId])
+  @@index([sha256Hash])
+  @@index([verificationStatus])
+  @@index([parentDocId])
+}
+
+// 5. Logistics Shipment Model
+model Shipment {
+  id                  String               @id @default(cuid())
+  supplierId          String
+  supplier            Supplier             @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  documentId          String?
+  document            Document?            @relation(fields: [documentId], references: [id], onDelete: SetNull)
+  manifestId          String               @unique
+  origin              String
+  destination         String
+  distanceKm          Float
+  weightTonnes        Float
+  transportMode       String               // ROAD, RAIL, AIR, SEA
+  fuelType            String               // DIESEL, ELECTRIC, HYDROGEN, JET_A1, HEAVY_FUEL_OIL, LNG
+  vehicleId           String?
+  carrierName         String?
+  departureDate       DateTime?
+  arrivalDate         DateTime?
+  status              String               @default("PENDING") // PENDING, VERIFIED, FLAGGED
+  createdAt           DateTime             @default(now())
+
+  calculations        EmissionCalculation[]
+
+  @@index([supplierId])
+  @@index([manifestId])
+  @@index([transportMode])
+}
+
+// 6. Certificate Model
+model Certificate {
+  id          String    @id @default(cuid())
+  supplierId  String
+  supplier    Supplier  @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  documentId  String?
+  document    Document? @relation(fields: [documentId], references: [id], onDelete: SetNull)
+  number      String    @unique
+  type        String    // ISO_14064, ISO_50001, GOTS, ECOVADIS, FAIR_LABOR
+  issuer      String
+  issueDate   DateTime
+  expiryDate  DateTime
+  status      String    @default("ACTIVE") // ACTIVE, EXPIRING_SOON, EXPIRED, FORGED, SUSPENDED
+  createdAt   DateTime  @default(now())
+
+  @@index([supplierId])
+  @@index([number])
+  @@index([status])
+}
+
+// 7. Versioned Emission Factors
+model EmissionFactor {
+  id            String                @id @default(cuid())
+  transportMode String                // ROAD, RAIL, AIR, SEA, ELECTRICITY
+  fuelType      String                // DIESEL, ELECTRIC, HYDROGEN, JET_A1, HEAVY_FUEL_OIL, LNG, GRID_AVERAGE
+  region        String                @default("GLOBAL")
+  factor        Float
+  unit          String
+  source        String
+  version       String                @default("2024.1")
+  effectiveFrom DateTime              @default(now())
+  effectiveTo   DateTime?
+  createdAt     DateTime              @default(now())
+
+  calculations  EmissionCalculation[]
+
+  @@index([transportMode, fuelType])
+  @@index([region])
+}
+
+// 8. Deterministic Emission Calculation Trace
+model EmissionCalculation {
+  id               String         @id @default(cuid())
+  calculationId    String         @unique
+  shipmentId       String
+  shipment         Shipment       @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  activityData     String         // JSON: { cargoWeight_kg, freightDistance_km, tonneKm }
+  emissionFactorId String
+  emissionFactor   EmissionFactor @relation(fields: [emissionFactorId], references: [id])
+  factorVersion    String
+  formula          String
+  result           Float          // calculated kg CO2e
+  unit             String         @default("kg_CO2e")
+  calculatedAt     DateTime       @default(now())
+
+  @@index([shipmentId])
+  @@index([calculationId])
+}
+
+// 9. Risk Score Model
+model RiskScore {
+  id          String   @id @default(cuid())
+  supplierId  String
+  supplier    Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  score       Float
+  breakdown   String   // JSON
+  explanation String
+  computedAt  DateTime @default(now())
+
+  @@index([supplierId])
+}
+
+// 10. Explainable Forensic Alert Model
+model Alert {
+  id                String    @id @default(cuid())
+  type              String
+  severity          String    // CRITICAL, WARNING, INFO
+  supplierId        String
+  supplier          Supplier  @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  documentId        String?
+  document          Document? @relation(fields: [documentId], references: [id], onDelete: SetNull)
+  whatHappened      String
+  whyItMatters      String
+  evidence          String    // JSON
+  recommendedAction String
+  status            String    @default("OPEN") // OPEN, UNDER_REVIEW, RESOLVED, DISMISSED
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([supplierId])
+  @@index([severity])
+  @@index([status])
+}
+
+// 11. Immutable Cryptographic Tamper-Evident Audit Event
+model AuditEvent {
+  id            String   @id @default(cuid())
+  actor         String   // Email or role
+  action        String   // UPLOAD, EXTRACTION, IDENTITY_CHECK, CERT_CHECK, CALCULATION, RISK_CHANGE, STATUS_CHANGE, ALERT_CREATED, MANUAL_REVIEW
+  entityType    String   // DOCUMENT, SHIPMENT, CERTIFICATE, SUPPLIER, CALCULATION, ALERT, RISK_SCORE
+  entityId      String
+  previousValue String?  // JSON snapshot
+  newValue      String?  // JSON snapshot
+  source        String   @default("SYSTEM") // ZERO_TRUST_PIPELINE, COMPLIANCE_DESK, API
+  reason        String?
+  entryHash     String?  // SHA-256 tamper-evident digest of this block
+  prevHash      String?  // SHA-256 pointer to preceding block
+  timestamp     DateTime @default(now())
+
+  @@index([entityType, entityId])
+  @@index([timestamp])
+  @@index([actor])
+  @@index([action])
+}
+
+// 12. Sanctions & Watchlist Blacklist Entry
+model BlacklistEntry {
+  id            String   @id @default(cuid())
+  entityName    String   @unique
+  country       String
+  reason        String
+  listingSource String
+  listedAt      DateTime @default(now())
+  active        Boolean  @default(true)
+
+  @@index([entityName])
+  @@index([active])
+}
