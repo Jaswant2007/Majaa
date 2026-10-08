@@ -88,34 +88,34 @@ export default function Scope3LabPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800 gap-3">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] font-bold uppercase tracking-wider">
-              GHG Protocol Corporate Standard
+            <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] font-bold uppercase tracking-wider interactive-badge font-mono">
+              GHG Protocol
             </span>
             <span className="text-slate-500 text-xs">•</span>
-            <span className="text-slate-400 text-xs">Rule 3: Deterministic Scope-3</span>
+            <span className="text-slate-400 text-xs font-mono">Scope-3 Verification</span>
           </div>
-          <h1 className="text-2xl font-black text-white mt-1">Scope-3 Deterministic Calculation Lab</h1>
+          <h1 className="text-2xl font-black text-white mt-1">Scope-3 Math</h1>
           <p className="text-xs text-slate-400">
-            Rule 3: Activity Data × Emission Factor. LLMs NEVER calculate emissions. Pure deterministic mathematical verification with reproducible historical traces.
+            Activity data × verified emission factors with reproducible historical calculation traces.
           </p>
         </div>
 
         <div className="flex items-center space-x-2">
-          <div className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono text-emerald-400">
+          <div className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono text-emerald-400 card-hover">
             DEFRA 2024 / GLEC Matrix Active
           </div>
         </div>
       </div>
 
       {/* Visual Stepper Architecture: INPUT -> FACTOR -> FORMULA -> RESULT */}
-      <div className="glass-panel p-5 rounded-2xl">
+      <div className="glass-panel p-5 rounded-2xl card-hover">
         <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
-          Deterministic 4-Stage Calculation Pipeline (Rule 3)
+          Calculation Pipeline
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
           {/* Stage 1: Input */}
-          <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+          <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1 card-hover">
             <div className="flex items-center justify-between text-[11px] font-mono text-cyan-400 font-bold">
               <span>STAGE 1</span>
               <span>ACTIVITY DATA</span>

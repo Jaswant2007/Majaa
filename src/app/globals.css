@@ -1,74 +1,389 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 222 47% 7%;
-    --foreground: 210 40% 98%;
-    --card: 222 47% 11%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 47% 11%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 160 84% 39%;
-    --primary-foreground: 222 47% 7%;
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217 33% 15%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 187 92% 43%;
-    --accent-foreground: 222 47% 7%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217 33% 20%;
-    --input: 217 33% 18%;
-    --ring: 160 84% 39%;
+    /* === EXACT REQUIRED DESIGN TOKENS (LIGHT MODE) === */
+    --color-primary: hsl(122, 50%, 90%);    /* page + surface background */
+    --color-secondary: hsl(122, 50%, 10%);  /* main text colour */
+    --color-tertiary: hsl(182, 80%, 20%);   /* personality colour: headings emphasis, secondary buttons, borders, icons, links */
+    --color-accent: hsl(62, 80%, 20%);      /* highlights: important elements, key numbers/words, primary CTA buttons, slider/active states */
+
+    /* Distinguishable surface panels (tints of primary, hue 122, mixed lightness) */
+    --surface-card: hsl(122, 45%, 93%);
+    --surface-card-subtle: hsl(122, 40%, 87%);
+    --border-color: hsla(122, 50%, 10%, 0.15);
+    --border-subtle: hsla(122, 50%, 10%, 0.10);
+
+    /* Text Brightness / Opacity */
+    --text-primary: hsla(122, 50%, 10%, 0.95);
+    --text-secondary: hsla(122, 50%, 10%, 0.70);
+    --text-muted: hsla(122, 50%, 10%, 0.50);
+
+    /* Text on filled buttons */
+    --color-on-accent: hsl(122, 50%, 90%);
+    --color-on-tertiary: hsl(122, 50%, 90%);
+
+    /* Typography Scale: 3 Sizes + 24px Hero Title Exception */
+    --fs-hero: 1.5rem;    /* 24px: single hero title exception (weight 800) */
+    --fs-lg: 1.125rem;    /* 18px: emphasis, headings, section titles, primary buttons */
+    --fs-base: 1rem;      /* 16px: base body copy, inputs, nav links */
+    --fs-sm: 0.875rem;    /* 14px: supporting text, captions, metadata, tags */
+
+    /* Soft shadows tinted with secondary at low opacity */
+    --shadow-sm: 0 1px 3px hsla(122, 50%, 10%, 0.08);
+    --shadow-md: 0 4px 16px -2px hsla(122, 50%, 10%, 0.10);
+    --shadow-lg: 0 8px 30px -4px hsla(122, 50%, 10%, 0.12);
+
+    /* Status Colors strictly derived from Tertiary & Accent */
+    --status-success: hsl(182, 80%, 20%);
+    --status-warning: hsl(62, 80%, 20%);
+    --status-danger: hsl(62, 80%, 20%);
+    --status-info: hsl(182, 80%, 20%);
+
+    /* Tailwind CSS HSL mapping */
+    --background: 122 50% 90%;
+    --foreground: 122 50% 10%;
+    --card: 122 45% 93%;
+    --card-foreground: 122 50% 10%;
+    --popover: 122 45% 93%;
+    --popover-foreground: 122 50% 10%;
+    --primary: 122 50% 90%;
+    --primary-foreground: 122 50% 10%;
+    --secondary: 122 50% 10%;
+    --secondary-foreground: 122 50% 90%;
+    --muted: 122 40% 87%;
+    --muted-foreground: 122 50% 10%;
+    --accent: 62 80% 20%;
+    --accent-foreground: 122 50% 90%;
+    --destructive: 62 80% 20%;
+    --destructive-foreground: 122 50% 90%;
+    --border: 122 50% 10%;
+    --input: 122 45% 93%;
+    --ring: 62 80% 20%;
     --radius: 0.75rem;
+  }
+
+  .dark {
+    /* === EXACT REQUIRED DESIGN TOKENS (DARK MODE) === */
+    --color-primary: hsl(122, 50%, 10%);    /* page + surface background */
+    --color-secondary: hsl(122, 50%, 90%);  /* main text colour */
+    --color-tertiary: hsl(182, 80%, 80%);
+    --color-accent: hsl(62, 80%, 80%);
+
+    /* Distinguishable surface panels (tints of primary, hue 122, mixed lightness) */
+    --surface-card: hsl(122, 45%, 12%);
+    --surface-card-subtle: hsl(122, 40%, 15%);
+    --border-color: hsla(122, 50%, 90%, 0.15);
+    --border-subtle: hsla(122, 50%, 90%, 0.10);
+
+    /* Text Brightness / Opacity */
+    --text-primary: hsla(122, 50%, 90%, 0.95);
+    --text-secondary: hsla(122, 50%, 90%, 0.70);
+    --text-muted: hsla(122, 50%, 90%, 0.50);
+
+    /* Text on filled buttons */
+    --color-on-accent: hsl(122, 50%, 10%);
+    --color-on-tertiary: hsl(122, 50%, 10%);
+
+    /* Soft shadows tinted with secondary at low opacity */
+    --shadow-sm: 0 1px 3px hsla(122, 50%, 90%, 0.05);
+    --shadow-md: 0 4px 20px -2px hsla(122, 50%, 90%, 0.08);
+    --shadow-lg: 0 8px 32px -4px hsla(122, 50%, 90%, 0.12);
+
+    /* Status Colors strictly derived from Tertiary & Accent */
+    --status-success: hsl(182, 80%, 80%);
+    --status-warning: hsl(62, 80%, 80%);
+    --status-danger: hsl(62, 80%, 80%);
+    --status-info: hsl(182, 80%, 80%);
+
+    /* Tailwind CSS HSL mapping */
+    --background: 122 50% 10%;
+    --foreground: 122 50% 90%;
+    --card: 122 45% 12%;
+    --card-foreground: 122 50% 90%;
+    --popover: 122 45% 12%;
+    --popover-foreground: 122 50% 90%;
+    --primary: 122 50% 10%;
+    --primary-foreground: 122 50% 90%;
+    --secondary: 122 50% 90%;
+    --secondary-foreground: 122 50% 10%;
+    --muted: 122 40% 15%;
+    --muted-foreground: 122 50% 90%;
+    --accent: 62 80% 80%;
+    --accent-foreground: 122 50% 10%;
+    --destructive: 62 80% 80%;
+    --destructive-foreground: 122 50% 10%;
+    --border: 122 50% 90%;
+    --input: 122 45% 12%;
+    --ring: 62 80% 80%;
   }
 }
 
+html {
+  font-size: 16px;
+}
+
 body {
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--color-primary);
+  color: var(--text-primary);
+  font-family: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   overflow-x: hidden;
-  background-image: 
-    radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.06) 0px, transparent 50%);
-  background-attachment: fixed;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Glassmorphic card utility */
-.glass-panel {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+code, kbd, samp, pre {
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 }
 
-.glass-panel-hover {
+/* === Selection Highlight (using Accent) === */
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+}
+
+/* === Focus ring for accessibility (Visible Accent Focus Ring) === */
+*:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* === Typography Hierarchy === */
+h1 {
+  font-size: var(--fs-hero);
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--color-secondary);
+}
+
+h2, h3, h4, h5, h6 {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--color-secondary);
+}
+
+p {
+  font-size: var(--fs-base);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+small {
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* === Panels & Cards === */
+.glass-panel, .card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.glass-panel-hover, .card-hover {
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.glass-panel-hover:hover {
-  border-color: rgba(16, 185, 129, 0.35);
-  box-shadow: 0 12px 40px -10px rgba(16, 185, 129, 0.2);
+.glass-panel-hover:hover, .card-hover:hover {
+  border-color: var(--color-tertiary);
+  box-shadow: var(--shadow-md);
   transform: translateY(-2px);
 }
 
-/* Custom scrollbars */
+/* === Custom scrollbars === */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.5);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(51, 65, 85, 0.8);
+  background: var(--border-color);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(16, 185, 129, 0.5);
+  background: var(--color-tertiary);
+}
+
+/* === Button Design System === */
+/* Primary CTA button: Accent fill, primary text */
+.btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover {
+  opacity: 0.90;
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Secondary / outlined button: Tertiary border & text */
+.btn-secondary {
+  background-color: transparent;
+  border: 1.5px solid var(--color-tertiary);
+  color: var(--color-tertiary);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-secondary:hover {
+  background-color: hsla(182, 80%, 20%, 0.08);
+}
+
+.dark .btn-secondary:hover {
+  background-color: hsla(182, 80%, 80%, 0.12);
+}
+
+/* === Input Design System === */
+.input-field {
+  height: 2.5rem;
+  padding: 0.5rem 0.875rem;
+  font-size: var(--fs-base);
+  font-weight: 500;
+  background: var(--surface-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: 0.5rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+}
+
+.input-field::placeholder {
+  color: var(--text-muted);
+}
+
+.input-field:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px hsla(62, 80%, 20%, 0.2);
+}
+
+.dark .input-field:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px hsla(62, 80%, 80%, 0.25);
+}
+
+/* === Utility: Animations & Interactive Hovering === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, hsla(122, 50%, 90%, 0.02) 25%, hsla(122, 50%, 90%, 0.08) 50%, hsla(122, 50%, 90%, 0.02) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite;
+}
+
+.dark .animate-shimmer {
+  background: linear-gradient(90deg, hsla(122, 50%, 10%, 0.02) 25%, hsla(122, 50%, 90%, 0.08) 50%, hsla(122, 50%, 10%, 0.02) 75%);
+  background-size: 200% 100%;
+}
+
+.pulse-glow {
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+.interactive-badge {
+  transition: all 0.2s ease;
+}
+.interactive-badge:hover {
+  transform: scale(1.04);
+}
+
+/* === Typography Helpers (Enforcing the 3 Main Sizes Scale + Hero Exception) === */
+.text-page-title {
+  font-size: var(--fs-hero);
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.text-section-header {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.text-card-subheader {
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-tertiary);
+}
+
+.text-body {
+  font-size: var(--fs-base);
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.text-meta {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.text-fine {
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  color: var(--text-muted);
 }

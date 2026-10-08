@@ -69,7 +69,7 @@ function SupplierNode({ data }: { data: any }) {
   return (
     <div
       onClick={data.onClick}
-      className={`p-3.5 rounded-xl border-2 transition-all cursor-pointer min-w-[220px] max-w-[240px] shadow-lg backdrop-blur-md ${getBorderColor()}`}
+      className={`p-3.5 rounded-xl border-2 transition-all duration-200 cursor-pointer min-w-[220px] max-w-[240px] shadow-lg backdrop-blur-md hover:scale-105 hover:shadow-2xl hover:-translate-y-1 ${getBorderColor()}`}
     >
       <Handle type="target" position={Position.Top} className="w-2.5 h-2.5 bg-cyan-400" />
       <Handle type="source" position={Position.Bottom} className="w-2.5 h-2.5 bg-emerald-400" />
@@ -180,8 +180,8 @@ export default function ReactFlowSupplyChain({
         source: "enterprise-root",
         target: s.id,
         animated: true,
-        style: { stroke: "#10b981", strokeWidth: 2 },
-        markerEnd: { type: MarkerType.ArrowClosed, color: "#10b981" },
+        style: { stroke: "var(--color-tertiary)", strokeWidth: 2 },
+        markerEnd: { type: MarkerType.ArrowClosed, color: "var(--color-tertiary)" },
       });
     });
 
@@ -220,10 +220,10 @@ export default function ReactFlowSupplyChain({
           source: parentId,
           target: s.id,
           animated: s.trustScore < 70,
-          style: { stroke: s.trustScore < 70 ? "#f59e0b" : "#06b6d4", strokeWidth: 1.5 },
+          style: { stroke: s.trustScore < 70 ? "var(--color-accent)" : "var(--color-tertiary)", strokeWidth: 1.5 },
           markerEnd: {
             type: MarkerType.ArrowClosed,
-            color: s.trustScore < 70 ? "#f59e0b" : "#06b6d4",
+            color: s.trustScore < 70 ? "var(--color-accent)" : "var(--color-tertiary)",
           },
         });
       }
@@ -265,12 +265,12 @@ export default function ReactFlowSupplyChain({
           target: s.id,
           animated: s.blacklisted || s.trustScore < 60,
           style: {
-            stroke: s.blacklisted ? "#ef4444" : s.trustScore < 70 ? "#f59e0b" : "#64748b",
+            stroke: s.blacklisted ? "var(--color-accent)" : s.trustScore < 70 ? "var(--color-accent)" : "var(--border-color)",
             strokeWidth: 1.5,
           },
           markerEnd: {
             type: MarkerType.ArrowClosed,
-            color: s.blacklisted ? "#ef4444" : s.trustScore < 70 ? "#f59e0b" : "#64748b",
+            color: s.blacklisted ? "var(--color-accent)" : s.trustScore < 70 ? "var(--color-accent)" : "var(--border-color)",
           },
         });
       }
@@ -286,15 +286,15 @@ export default function ReactFlowSupplyChain({
     <div className="h-[680px] w-full rounded-2xl glass-panel border border-slate-800 overflow-hidden relative">
       <div className="absolute top-4 left-4 z-10 bg-slate-950/80 backdrop-blur-md px-3.5 py-2 rounded-xl border border-slate-800 text-xs flex items-center space-x-3 pointer-events-none">
         <div className="flex items-center space-x-1.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+          <span className="w-2.5 h-2.5 rounded-full bg-tertiary"></span>
           <span className="text-slate-300 font-mono">Compliant</span>
         </div>
         <div className="flex items-center space-x-1.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+          <span className="w-2.5 h-2.5 rounded-full bg-accent"></span>
           <span className="text-slate-300 font-mono">Action Required</span>
         </div>
         <div className="flex items-center space-x-1.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+          <span className="w-2.5 h-2.5 rounded-full bg-accent"></span>
           <span className="text-slate-300 font-mono">High Risk / Blacklisted</span>
         </div>
       </div>
@@ -310,12 +310,12 @@ export default function ReactFlowSupplyChain({
         minZoom={0.2}
         maxZoom={1.5}
       >
-        <Background color="#1e293b" gap={18} size={1} />
+        <Background color="var(--border-color)" gap={18} size={1} />
         <Controls className="bg-slate-900 border-slate-800 text-white rounded-xl" />
         <MiniMap
           nodeColor={(n) => {
-            if (n.type === "enterprise") return "#10b981";
-            return "#06b6d4";
+            if (n.type === "enterprise") return "var(--color-tertiary)";
+            return "var(--color-accent)";
           }}
           className="bg-slate-950/90 border border-slate-800 rounded-xl"
         />

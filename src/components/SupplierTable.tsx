@@ -96,7 +96,7 @@ export default function SupplierTable({ suppliers, onSelectSupplier }: SupplierT
   };
 
   return (
-    <div className="glass-panel rounded-2xl overflow-hidden">
+    <div className="glass-panel rounded-2xl overflow-hidden card-hover">
       {/* Table Header Controls */}
       <div className="p-5 border-b border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center space-x-3">
@@ -105,13 +105,13 @@ export default function SupplierTable({ suppliers, onSelectSupplier }: SupplierT
           </div>
           <div>
             <h3 className="text-base font-bold text-white flex items-center space-x-2">
-              <span>Supplier Integrity Database & Compliance Badges</span>
+              <span>Vendor Registry</span>
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-mono">
                 {filteredSuppliers.length} Records
               </span>
             </h3>
             <p className="text-xs text-slate-400">
-              Live multi-tier vendor integrity ratings calculated deterministically from verified GHG and cert records.
+              Live multi-tier vendor integrity ratings and compliance statuses.
             </p>
           </div>
         </div>

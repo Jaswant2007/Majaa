@@ -185,50 +185,50 @@ export default function ComplianceCenterPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800 gap-3">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-800 text-[10px] font-bold uppercase tracking-wider">
-              Regulatory Due Diligence
+            <span className="px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-800 text-[10px] font-bold uppercase tracking-wider interactive-badge font-mono">
+              Due Diligence
             </span>
             <span className="text-slate-500 text-xs">•</span>
-            <span className="text-slate-400 text-xs">Phase 4 Compliance Center</span>
+            <span className="text-slate-400 text-xs font-mono">CSRD & ISO-14064</span>
           </div>
-          <h1 className="text-2xl font-black text-white mt-1">ESG Compliance & Verification Center</h1>
+          <h1 className="text-2xl font-black text-white mt-1">Compliance</h1>
           <p className="text-xs text-slate-400">
-            Real-time compliance monitoring across CSRD, ISO-14064, OECD Due Diligence, and EU Deforestation standards.
+            Real-time compliance monitoring across CSRD, ISO-14064, and due diligence standards.
           </p>
         </div>
 
         <div className="flex items-center space-x-2">
-          <div className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300">
+          <div className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300 card-hover">
             Verified Vendors: <strong className="text-emerald-400">{counts.COMPLIANT}</strong> / {counts.ALL}
           </div>
         </div>
       </div>
 
       {/* Filter Tabs Bar */}
-      <div className="glass-panel p-4 rounded-2xl space-y-3">
+      <div className="glass-panel p-4 rounded-2xl space-y-3 card-hover">
         <div className="flex items-center space-x-2 overflow-x-auto pb-1 text-xs">
           {[
-            { id: "ALL", label: "All Suppliers", count: counts.ALL },
+            { id: "ALL", label: "All Vendors", count: counts.ALL },
             {
               id: "TIMELINE",
-              label: "Predictive Expiry Timeline (30/60/90d)",
+              label: "Expiry Timeline",
               count:
                 timelineBuckets.critical30.length +
                 timelineBuckets.warning60.length +
                 timelineBuckets.watchlist90.length,
             },
             { id: "COMPLIANT", label: "Compliant", count: counts.COMPLIANT },
-            { id: "ACTION_REQUIRED", label: "Action Required", count: counts.ACTION_REQUIRED },
+            { id: "ACTION_REQUIRED", label: "Action Needed", count: counts.ACTION_REQUIRED },
             { id: "HIGH_RISK", label: "High Risk", count: counts.HIGH_RISK },
-            { id: "EXPIRED", label: "Expired Certs", count: counts.EXPIRED },
-            { id: "EXPIRING", label: "Expiring Soon (<=30d)", count: counts.EXPIRING },
+            { id: "EXPIRED", label: "Expired", count: counts.EXPIRED },
+            { id: "EXPIRING", label: "Expiring Soon", count: counts.EXPIRING },
             { id: "MISSING", label: "Missing Certs", count: counts.MISSING },
             { id: "FAILED_CHECKS", label: "Failed Checks", count: counts.FAILED_CHECKS },
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as ComplianceTab)}
-              className={`px-3 py-1.5 rounded-xl font-bold flex items-center space-x-1.5 transition whitespace-nowrap border ${
+              className={`px-3 py-1.5 rounded-xl font-bold flex items-center space-x-1.5 transition whitespace-nowrap border hover:scale-[1.02] ${
                 activeTab === tab.id
                   ? "bg-emerald-600 text-slate-950 border-emerald-500 font-black shadow-md shadow-emerald-950/40"
                   : "bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white"

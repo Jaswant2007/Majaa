@@ -154,7 +154,7 @@ export default function Supplier360Drawer({ supplierId, onClose }: Supplier360Dr
           <div className="flex-1 p-6 space-y-6">
             {/* Quick Stats Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 card-hover">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Trust Score</span>
                 <span className="text-2xl font-black text-emerald-400 font-mono mt-1 block">
                   {supplier?.trustScore?.toFixed(1) || 0}
@@ -162,7 +162,7 @@ export default function Supplier360Drawer({ supplierId, onClose }: Supplier360Dr
                 </span>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 card-hover">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Scope-3 Footprint</span>
                 <span className="text-2xl font-black text-white font-mono mt-1 block">
                   {emissions?.totalEmissionsTonnes || 0}
@@ -170,7 +170,7 @@ export default function Supplier360Drawer({ supplierId, onClose }: Supplier360Dr
                 </span>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 card-hover">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Certifications</span>
                 <span className="text-2xl font-black text-cyan-400 font-mono mt-1 block">
                   {certs.length}
@@ -178,7 +178,7 @@ export default function Supplier360Drawer({ supplierId, onClose }: Supplier360Dr
                 </span>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+              <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 card-hover">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Data Freshness</span>
                 <div className="mt-1 flex items-baseline space-x-1.5">
                   <span className={`text-2xl font-black font-mono ${

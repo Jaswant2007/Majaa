@@ -50,21 +50,21 @@ export async function GET() {
 
     // 1. KPI Counts
     const totalSuppliers = suppliers.length;
-    const tier1Count = suppliers.filter((s) => s.tier === 1).length;
-    const tier2Count = suppliers.filter((s) => s.tier === 2).length;
-    const tier3Count = suppliers.filter((s) => s.tier === 3).length;
+    const tier1Count = suppliers.filter((s: any) => s.tier === 1).length;
+    const tier2Count = suppliers.filter((s: any) => s.tier === 2).length;
+    const tier3Count = suppliers.filter((s: any) => s.tier === 3).length;
 
-    const verifiedSuppliersCount = suppliers.filter((s) => s.status === "VERIFIED").length;
+    const verifiedSuppliersCount = suppliers.filter((s: any) => s.status === "VERIFIED").length;
     const unverifiedSuppliersCount = suppliers.filter(
-      (s) => s.status !== "VERIFIED"
+      (s: any) => s.status !== "VERIFIED"
     ).length;
 
     const highRiskSuppliersCount = suppliers.filter(
-      (s) => s.trustScore < 70 || s.blacklisted || s.status === "HIGH_RISK"
+      (s: any) => s.trustScore < 70 || s.blacklisted || s.status === "HIGH_RISK"
     ).length;
 
     const actionRequiredCount = suppliers.filter(
-      (s) => s.status === "REQUIRES_REVIEW" || s.trustScore < 75
+      (s: any) => s.status === "REQUIRES_REVIEW" || s.trustScore < 75
     ).length;
 
     // Scope-3 totals
@@ -72,9 +72,9 @@ export async function GET() {
     let verifiedScope3Kg = 0;
     let unverifiedScope3Kg = 0;
 
-    suppliers.forEach((s) => {
-      s.shipments.forEach((shp) => {
-        shp.calculations.forEach((calc) => {
+    suppliers.forEach((s: any) => {
+      s.shipments.forEach((shp: any) => {
+        shp.calculations.forEach((calc: any) => {
           totalScope3Kg += calc.result;
           if (s.status === "VERIFIED" && shp.status === "VERIFIED") {
             verifiedScope3Kg += calc.result;
@@ -89,13 +89,13 @@ export async function GET() {
     const now = new Date();
     const thirtyDaysAhead = new Date(Date.now() + 30 * 86400000);
     const expiringCertsCount = certificates.filter(
-      (c) =>
+      (c: any) =>
         c.status === "EXPIRING_SOON" ||
         (c.expiryDate > now && c.expiryDate <= thirtyDaysAhead)
     ).length;
 
     const suspiciousDocsCount = documents.filter(
-      (d) =>
+      (d: any) =>
         d.verificationStatus === "REQUIRES_REVIEW" ||
         d.verificationStatus === "REJECTED" ||
         d.extractionConfidence < 0.8
@@ -103,13 +103,13 @@ export async function GET() {
 
     // 2. Risk Distribution (Buckets)
     const riskBuckets = [
-      { range: "90-100 (Optimal)", count: 0, color: "#10b981" },
-      { range: "75-89 (Moderate)", count: 0, color: "#06b6d4" },
-      { range: "50-74 (Elevated)", count: 0, color: "#f59e0b" },
-      { range: "<50 (Critical)", count: 0, color: "#ef4444" },
+      { range: "90-100 (Optimal)", count: 0, color: "var(--color-tertiary)" },
+      { range: "75-89 (Moderate)", count: 0, color: "var(--color-tertiary)" },
+      { range: "50-74 (Elevated)", count: 0, color: "var(--color-accent)" },
+      { range: "<50 (Critical)", count: 0, color: "var(--color-accent)" },
     ];
 
-    suppliers.forEach((s) => {
+    suppliers.forEach((s: any) => {
       if (s.trustScore >= 90) riskBuckets[0].count++;
       else if (s.trustScore >= 75) riskBuckets[1].count++;
       else if (s.trustScore >= 50) riskBuckets[2].count++;
@@ -125,10 +125,10 @@ export async function GET() {
       EXPIRED: 0,
     };
 
-    suppliers.forEach((s) => {
+    suppliers.forEach((s: any) => {
       if (s.blacklisted || s.trustScore < 50) {
         complianceMap["HIGH RISK"]++;
-      } else if (s.certificates.some((c) => c.status === "EXPIRED")) {
+      } else if (s.certificates.some((c: any) => c.status === "EXPIRED")) {
         complianceMap["EXPIRED"]++;
       } else if (s.status === "REQUIRES_REVIEW" || s.trustScore < 75) {
         complianceMap["ACTION REQUIRED"]++;
@@ -152,10 +152,10 @@ export async function GET() {
         emissionsTonnes: Number(
           (
             suppliers
-              .filter((s) => s.tier === 1)
-              .flatMap((s) => s.shipments)
-              .flatMap((shp) => shp.calculations)
-              .reduce((sum, c) => sum + c.result, 0) / 1000
+              .filter((s: any) => s.tier === 1)
+              .flatMap((s: any) => s.shipments)
+              .flatMap((shp: any) => shp.calculations)
+              .reduce((sum: number, c: any) => sum + c.result, 0) / 1000
           ).toFixed(2)
         ),
       },
@@ -165,10 +165,10 @@ export async function GET() {
         emissionsTonnes: Number(
           (
             suppliers
-              .filter((s) => s.tier === 2)
-              .flatMap((s) => s.shipments)
-              .flatMap((shp) => shp.calculations)
-              .reduce((sum, c) => sum + c.result, 0) / 1000
+              .filter((s: any) => s.tier === 2)
+              .flatMap((s: any) => s.shipments)
+              .flatMap((shp: any) => shp.calculations)
+              .reduce((sum: number, c: any) => sum + c.result, 0) / 1000
           ).toFixed(2)
         ),
       },
@@ -178,10 +178,10 @@ export async function GET() {
         emissionsTonnes: Number(
           (
             suppliers
-              .filter((s) => s.tier === 3)
-              .flatMap((s) => s.shipments)
-              .flatMap((shp) => shp.calculations)
-              .reduce((sum, c) => sum + c.result, 0) / 1000
+              .filter((s: any) => s.tier === 3)
+              .flatMap((s: any) => s.shipments)
+              .flatMap((shp: any) => shp.calculations)
+              .reduce((sum: number, c: any) => sum + c.result, 0) / 1000
           ).toFixed(2)
         ),
       },
@@ -234,7 +234,7 @@ export async function GET() {
         compliancePie,
         tierStats,
       },
-      recentAlerts: alerts.map((a) => ({
+      recentAlerts: alerts.map((a: any) => ({
         id: a.id,
         severity: a.severity,
         type: a.type,

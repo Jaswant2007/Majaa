@@ -101,22 +101,22 @@ export default function AIAssistantPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800 gap-3">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800 text-[10px] font-bold uppercase tracking-wider">
-              Phase 5 • Regulatory AI Copilot
+            <span className="px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800 text-[10px] font-bold uppercase tracking-wider interactive-badge font-mono">
+              AI Copilot
             </span>
             <span className="text-slate-500 text-xs">•</span>
-            <span className="text-slate-400 text-xs">Live Database Tool Calling</span>
+            <span className="text-slate-400 text-xs font-mono">Ledger Grounded</span>
           </div>
-          <h1 className="text-2xl font-black text-white mt-1">AI ESG & Regulatory Intelligence Copilot</h1>
+          <h1 className="text-2xl font-black text-white mt-1">AI Assistant</h1>
           <p className="text-xs text-slate-400">
-            Rule 3 & 9: Live tool access to Postgres/SQLite tables. The LLM explains structured evidence without inventing data or calculating emissions.
+            Grounded queries over verified vendor records, certificates, and Scope-3 calculations.
           </p>
         </div>
 
         <div className="flex items-center space-x-2">
-          <div className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono text-emerald-400 flex items-center space-x-1.5">
+          <div className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono text-emerald-400 flex items-center space-x-1.5 card-hover">
             <Database className="h-3.5 w-3.5" />
-            <span>Real-Time Database Tools</span>
+            <span>Database Tool Calling</span>
           </div>
         </div>
       </div>
@@ -128,7 +128,7 @@ export default function AIAssistantPage() {
           <button
             key={idx}
             onClick={() => handleSendPrompt(p)}
-            className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition whitespace-nowrap font-medium text-xs flex items-center space-x-1"
+            className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition whitespace-nowrap font-medium text-xs flex items-center space-x-1 hover:scale-[1.02] active:scale-[0.98]"
           >
             <Sparkles className="h-3 w-3 text-cyan-400" />
             <span>{p}</span>

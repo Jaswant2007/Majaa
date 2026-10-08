@@ -31,8 +31,8 @@ export function calculateDataFreshness(
       dataAgeDays: 999,
       ageDays: 999,
       status: "STALE",
-      badgeClass: "bg-rose-500/15 text-rose-300 border-rose-500/30",
-      dotColor: "bg-rose-400",
+      badgeClass: "bg-accent/20 text-accent border-accent/40",
+      dotColor: "bg-accent",
       description: "No verification timestamp recorded. Primary activity audit required.",
     };
   }
@@ -48,8 +48,8 @@ export function calculateDataFreshness(
       dataAgeDays,
       ageDays: dataAgeDays,
       status: "FRESH",
-      badgeClass: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
-      dotColor: "bg-emerald-400",
+      badgeClass: "bg-tertiary/15 text-tertiary border-tertiary/30",
+      dotColor: "bg-tertiary",
       description: `Verified within ${dataAgeDays} day(s). Complies with CSRD active disclosure rules.`,
     };
   }
@@ -60,8 +60,8 @@ export function calculateDataFreshness(
       dataAgeDays,
       ageDays: dataAgeDays,
       status: "AGING",
-      badgeClass: "bg-amber-500/15 text-amber-300 border-amber-500/30",
-      dotColor: "bg-amber-400",
+      badgeClass: "bg-accent/15 text-accent border-accent/30",
+      dotColor: "bg-accent",
       description: `Disclosure is ${dataAgeDays} days old. Approaching quarterly renewal window.`,
     };
   }
@@ -71,8 +71,8 @@ export function calculateDataFreshness(
     dataAgeDays,
     ageDays: dataAgeDays,
     status: "STALE",
-    badgeClass: "bg-orange-500/15 text-orange-300 border-orange-500/30",
-    dotColor: "bg-orange-400",
+    badgeClass: "bg-accent/20 text-accent border-accent/40",
+    dotColor: "bg-accent",
     description: `Audit data is ${dataAgeDays} days old (>90 days). Downgrade risk applied until refreshed.`,
   };
 }

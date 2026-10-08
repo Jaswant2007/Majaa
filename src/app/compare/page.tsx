@@ -90,22 +90,22 @@ export default function SupplierComparisonPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800 gap-3">
           <div>
             <div className="flex items-center space-x-2">
-              <span className="px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800 text-[10px] font-bold uppercase tracking-wider font-mono">
-                Comparative Analytics
+              <span className="px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800 text-[10px] font-bold uppercase tracking-wider font-mono interactive-badge">
+                Benchmarking
               </span>
               <span className="text-slate-500 text-xs">•</span>
-              <span className="text-slate-400 text-xs font-mono">Phase 6 Procurement Benchmarking</span>
+              <span className="text-slate-400 text-xs font-mono">Vendor Assessment</span>
             </div>
-            <h1 className="text-2xl font-black text-white mt-1">Multi-Supplier ESG Benchmark Comparison</h1>
+            <h1 className="text-2xl font-black text-white mt-1">Vendor Comparison</h1>
             <p className="text-xs text-slate-400">
-              Side-by-side auditable evaluation of supplier integrity scores, Scope-3 footprints, and certification standing.
+              Side-by-side auditable evaluation of supplier integrity scores, emissions, and certifications.
             </p>
           </div>
 
           <div className="flex items-center space-x-2">
-            <span className="text-xs font-mono text-cyan-400 bg-cyan-950/60 border border-cyan-800/80 px-3 py-1.5 rounded-xl flex items-center space-x-1.5">
+            <span className="text-xs font-mono text-cyan-400 bg-cyan-950/60 border border-cyan-800/80 px-3 py-1.5 rounded-xl flex items-center space-x-1.5 card-hover">
               <Scale className="h-4 w-4" />
-              <span>Direct Vendor Benchmarking</span>
+              <span>Direct Benchmarking</span>
             </span>
           </div>
         </div>

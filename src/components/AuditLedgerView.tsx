@@ -195,13 +195,13 @@ export default function AuditLedgerView({
             </div>
             <div>
               <h3 className="text-base font-bold text-white flex items-center space-x-2">
-                <span>Cryptographic ESG Audit Ledger</span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono font-bold">
+                <span>Audit Ledger</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono font-bold interactive-badge">
                   TAMPER-EVIDENT HASH CHAIN
                 </span>
               </h3>
               <p className="text-xs text-slate-400">
-                Rule 8: Append-only cryptographic event trace. Every state mutation chains the prior block hash (stated as tamper-evident, not tamper-proof).
+                Append-only cryptographic event trace chaining previous block hashes.
               </p>
             </div>
           </div>
@@ -342,7 +342,7 @@ export default function AuditLedgerView({
             return (
               <div
                 key={log.id}
-                className="glass-panel p-4 rounded-xl border border-slate-800/80 hover:border-slate-700 transition"
+                className="glass-panel p-4 rounded-xl border border-slate-800/80 hover:border-slate-700 transition card-hover"
               >
                 <div
                   className="flex items-start justify-between cursor-pointer select-none"

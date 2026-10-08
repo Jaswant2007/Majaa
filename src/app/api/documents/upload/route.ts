@@ -79,14 +79,51 @@ export async function POST(req: NextRequest) {
     // Step 1: Compute SHA-256 integrity hash
     const sha256Hash = crypto.createHash("sha256").update(content).digest("hex");
 
-    // Step 2: Zero-Trust Document Record created in UNVERIFIED state (Rule 6)
+    // Step 2: Zero-Trust Duplicate Check across all suppliers
+    const duplicateDoc = await prisma.document.findFirst({
+      where: { sha256Hash },
+      include: { supplier: { select: { id: true, name: true } } },
+    });
+
+    if (duplicateDoc) {
+      return NextResponse.json(
+        {
+          error: "DUPLICATE_DOCUMENT_DETECTED",
+          message: `Document with identical cryptographic SHA-256 checksum already registered (Supplier: ${duplicateDoc.supplier.name}).`,
+          existingDocumentId: duplicateDoc.id,
+          sha256Hash,
+        },
+        { status: 409 }
+      );
+    }
+
+    // Step 3: Upload to Supabase Private Storage ("supplier-documents")
+    let storagePath = `supplier-documents/${targetSupplier.id}/${Date.now()}-${filename}`;
+    try {
+      const { getAdminClient } = await import("@/lib/supabase/admin");
+      const admin = getAdminClient();
+      const fileBuffer = Buffer.from(content, "utf-8");
+      const { data: storageUpload, error: storageErr } = await admin.storage
+        .from("supplier-documents")
+        .upload(`${targetSupplier.id}/${Date.now()}-${filename}`, fileBuffer, {
+          contentType: "text/plain",
+          upsert: true,
+        });
+      if (!storageErr && storageUpload?.path) {
+        storagePath = storageUpload.path;
+      }
+    } catch {
+      // Graceful fallback to deterministic path if storage credentials pending
+    }
+
+    // Step 4: Zero-Trust Document Record created in UNVERIFIED state (Rule 6)
     const doc = await prisma.document.create({
       data: {
         supplierId: targetSupplier.id,
         filename,
         mimeType: "text/plain",
         size: Buffer.byteLength(content),
-        storagePath: `/uploads/${filename}`,
+        storagePath,
         sha256Hash,
         uploadedBy: authResult.user.id,
         processingStatus: "UNVERIFIED",

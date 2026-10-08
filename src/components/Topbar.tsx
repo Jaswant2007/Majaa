@@ -89,10 +89,10 @@ export default function Topbar() {
             <div className="absolute right-0 mt-2 w-64 rounded-xl bg-slate-900 border border-slate-700 shadow-2xl p-2 z-50 animate-fadeIn text-xs">
               <div className="px-3 py-2 border-b border-slate-800 mb-1">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
-                  Select RBAC Test Persona
+                  Enterprise Role Persona
                 </span>
                 <p className="text-[11px] text-slate-500 mt-0.5">
-                  Rule 11: Backend middleware enforces role on all operations.
+                  RBAC policy controls live query & adjudication capabilities.
                 </p>
               </div>
 
@@ -103,7 +103,7 @@ export default function Topbar() {
                     switchRole(item.role);
                     setDropdownOpen(false);
                   }}
-                  className={`w-full text-left px-3 py-2 rounded-lg transition flex items-center justify-between ${
+                  className={`w-full text-left px-3 py-2 rounded-lg transition flex items-center justify-between hover:scale-[1.01] ${
                     role === item.role
                       ? "bg-emerald-950/40 text-emerald-300 font-bold border border-emerald-800/40"
                       : "text-slate-300 hover:bg-slate-800"

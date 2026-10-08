@@ -53,45 +53,45 @@ export default function FraudInvestigationCenterPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800 gap-3">
           <div>
             <div className="flex items-center space-x-2">
-              <span className="px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800 text-[10px] font-bold uppercase tracking-wider font-mono">
-                Counter-Fraud Forensics
+              <span className="px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800 text-[10px] font-bold uppercase tracking-wider font-mono interactive-badge">
+                Forensics
               </span>
               <span className="text-slate-500 text-xs">•</span>
-              <span className="text-slate-400 text-xs font-mono">Phase 6 Security Center</span>
+              <span className="text-slate-400 text-xs font-mono">Zero-Trust Audit</span>
             </div>
-            <h1 className="text-2xl font-black text-white mt-1">Fraud & Collusion Investigation Center</h1>
+            <h1 className="text-2xl font-black text-white mt-1">Fraud Center</h1>
             <p className="text-xs text-slate-400">
-              Automated detection of cross-supplier document cloning, recycled environmental certificates, and shell company bypass attempts.
+              Cross-supplier document cloning, certificate reuse, and sanction bypass forensics.
             </p>
           </div>
 
           <div className="flex items-center space-x-2">
             <span className="text-xs font-mono text-rose-400 bg-rose-950/60 border border-rose-800/80 px-3 py-1.5 rounded-xl flex items-center space-x-1.5">
               <ShieldAlert className="h-4 w-4" />
-              <span>Zero-Trust Forensic Ledger</span>
+              <span>Forensic Ledger</span>
             </span>
           </div>
         </div>
 
         {/* 4 KPI Summary Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
-          <div className="glass-panel p-4 rounded-xl border border-rose-900/40 relative overflow-hidden">
+          <div className={`glass-panel p-4 rounded-xl border border-rose-900/40 relative overflow-hidden card-hover group ${isLoading ? "animate-shimmer" : ""}`}>
             <div className="flex items-center justify-between text-slate-400 mb-1">
-              <span className="text-[10px] font-bold uppercase tracking-wider font-mono">Cross-Entity Duplicates</span>
-              <Fingerprint className="h-4 w-4 text-rose-400" />
+              <span className="text-[10px] font-bold uppercase tracking-wider font-mono">Cloned Hashes</span>
+              <Fingerprint className="h-4 w-4 text-rose-400 group-hover:scale-110 transition-transform" />
             </div>
             <div className="text-2xl font-black text-white font-mono">
               {summary?.crossSupplierCollusionCases ?? 0}
             </div>
             <p className="text-[10px] text-slate-400 mt-1">
-              Shared SHA-256 digests across separate vendors.
+              Identical payload hashes across separate vendors.
             </p>
           </div>
 
-          <div className="glass-panel p-4 rounded-xl border border-amber-900/40 relative overflow-hidden">
+          <div className={`glass-panel p-4 rounded-xl border border-amber-900/40 relative overflow-hidden card-hover group ${isLoading ? "animate-shimmer" : ""}`}>
             <div className="flex items-center justify-between text-slate-400 mb-1">
-              <span className="text-[10px] font-bold uppercase tracking-wider font-mono">Recycled Credentials</span>
-              <FileX className="h-4 w-4 text-amber-400" />
+              <span className="text-[10px] font-bold uppercase tracking-wider font-mono">Recycled Certs</span>
+              <FileX className="h-4 w-4 text-amber-400 group-hover:scale-110 transition-transform" />
             </div>
             <div className="text-2xl font-black text-white font-mono">
               {summary?.reusedCertificatesCount ?? 0}
@@ -101,29 +101,29 @@ export default function FraudInvestigationCenterPage() {
             </p>
           </div>
 
-          <div className="glass-panel p-4 rounded-xl border border-rose-900/40 relative overflow-hidden">
+          <div className={`glass-panel p-4 rounded-xl border border-rose-900/40 relative overflow-hidden card-hover group ${isLoading ? "animate-shimmer" : ""}`}>
             <div className="flex items-center justify-between text-slate-400 mb-1">
-              <span className="text-[10px] font-bold uppercase tracking-wider font-mono">Critical Fraud Flags</span>
-              <AlertOctagon className="h-4 w-4 text-rose-400" />
+              <span className="text-[10px] font-bold uppercase tracking-wider font-mono">Critical Flags</span>
+              <AlertOctagon className="h-4 w-4 text-rose-400 group-hover:scale-110 transition-transform" />
             </div>
             <div className="text-2xl font-black text-rose-400 font-mono">
               {summary?.criticalFraudAlertsCount ?? 0}
             </div>
             <p className="text-[10px] text-slate-400 mt-1">
-              Identity mismatches & sanctions watchlist matches.
+              Identity mismatches and sanction watchlist hits.
             </p>
           </div>
 
-          <div className="glass-panel p-4 rounded-xl border border-cyan-900/40 relative overflow-hidden">
+          <div className={`glass-panel p-4 rounded-xl border border-cyan-900/40 relative overflow-hidden card-hover group ${isLoading ? "animate-shimmer" : ""}`}>
             <div className="flex items-center justify-between text-slate-400 mb-1">
               <span className="text-[10px] font-bold uppercase tracking-wider font-mono">Tamper Evidence</span>
-              <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+              <CheckCircle2 className="h-4 w-4 text-emerald-400 group-hover:scale-110 transition-transform" />
             </div>
             <div className="text-2xl font-black text-emerald-400 font-mono">
               100%
             </div>
             <p className="text-[10px] text-slate-400 mt-1">
-              All events immutably chained in append-only ledger.
+              Immutably anchored in append-only ledger.
             </p>
           </div>
         </div>
@@ -182,7 +182,7 @@ export default function FraudInvestigationCenterPage() {
               </div>
             ) : (
               collusionClusters.map((cluster: any) => (
-                <div key={cluster.id} className="glass-panel p-5 rounded-2xl border border-rose-900/60 space-y-3">
+                <div key={cluster.id} className="glass-panel p-5 rounded-2xl border border-rose-900/60 space-y-3 card-hover">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <span className="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-rose-500/20 text-rose-300 border border-rose-500/40">
@@ -204,7 +204,7 @@ export default function FraudInvestigationCenterPage() {
                         <div
                           key={s.id}
                           onClick={() => setSelectedSupplierId(s.id)}
-                          className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 transition cursor-pointer flex justify-between items-center text-xs"
+                          className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 transition cursor-pointer flex justify-between items-center text-xs hover:bg-slate-800/60"
                         >
                           <div>
                             <span className="font-bold text-white block">{s.name}</span>
@@ -230,7 +230,7 @@ export default function FraudInvestigationCenterPage() {
               </div>
             ) : (
               duplicateHashCases.map((c: any) => (
-                <div key={c.sha256Hash} className="glass-panel p-5 rounded-2xl border border-slate-800 space-y-3">
+                <div key={c.sha256Hash} className="glass-panel p-5 rounded-2xl border border-slate-800 space-y-3 card-hover">
                   <div className="flex items-center justify-between">
                     <div>
                       <span className="text-xs font-bold text-white block">{c.filename}</span>

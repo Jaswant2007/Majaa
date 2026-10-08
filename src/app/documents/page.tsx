@@ -112,16 +112,16 @@ export default function DocumentIntelligencePage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800 gap-2">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800 text-[10px] font-bold uppercase tracking-wider">
-              Phase 3 • Auditability & Provenance
+            <span className="px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800 text-[10px] font-bold uppercase tracking-wider interactive-badge font-mono">
+              Provenance
             </span>
-            <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] font-bold uppercase">
-              Zero-Trust Verification
+            <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] font-bold uppercase interactive-badge font-mono">
+              Zero-Trust
             </span>
           </div>
-          <h1 className="text-2xl font-black text-white mt-1">Document Intelligence & Forensic Provenance</h1>
+          <h1 className="text-2xl font-black text-white mt-1">Documents</h1>
           <p className="text-xs text-slate-400">
-            Rule 4: Every extracted entity traces to origin document, source field, and confidence. Re-uploads trigger automatic versioning.
+            Verifiable vendor manifests, certifications, and forensic provenance logs.
           </p>
         </div>
 

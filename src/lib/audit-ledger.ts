@@ -13,7 +13,10 @@ export interface CreateAuditEntryParams {
     | 'STATUS_CHANGE'
     | 'ALERT_CREATED'
     | 'MANUAL_REVIEW'
-    | 'DOCUMENT_VERSIONED';
+    | 'DOCUMENT_VERSIONED'
+    | 'VERIFIED'
+    | 'FLAGGED'
+    | 'REJECTED';
   entityType:
     | 'DOCUMENT'
     | 'SHIPMENT'
@@ -64,16 +67,17 @@ export function computeEntryHash(
 }
 
 /**
- * Append an immutable event to the tamper-evident audit ledger.
- * Application logic is strictly append-only: no update or delete mutations exist.
+ * Append an immutable event to the tamper-evident audit ledger within an optional transaction.
+ * Usage: logAudit(tx, {...})
  */
-export async function recordAuditEvent(params: CreateAuditEntryParams) {
+export async function logAudit(tx: any, params: CreateAuditEntryParams) {
+  const db = tx || prisma;
   const timestamp = new Date();
 
   // Find the latest audit entry in the chronological chain
-  const latestEntry = await prisma.auditEvent.findFirst({
+  const latestEntry = await db.auditEvent.findFirst({
     orderBy: { timestamp: 'desc' },
-    select: { entryHash: true }
+    select: { entryHash: true },
   });
 
   const prevHash = latestEntry?.entryHash || GENESIS_PREV_HASH;
@@ -92,7 +96,7 @@ export async function recordAuditEvent(params: CreateAuditEntryParams) {
     params.reason ?? null
   );
 
-  return prisma.auditEvent.create({
+  return db.auditEvent.create({
     data: {
       actor: params.actor,
       action: params.action,
@@ -104,9 +108,16 @@ export async function recordAuditEvent(params: CreateAuditEntryParams) {
       reason: params.reason ?? null,
       entryHash,
       prevHash,
-      timestamp
-    }
+      timestamp,
+    },
   });
+}
+
+/**
+ * Append an immutable event to the tamper-evident audit ledger using the global Prisma client.
+ */
+export async function recordAuditEvent(params: CreateAuditEntryParams) {
+  return logAudit(prisma, params);
 }
 
 export interface VerificationResult {

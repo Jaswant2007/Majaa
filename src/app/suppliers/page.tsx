@@ -26,20 +26,20 @@ export default function Supplier360Page() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800 gap-3">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] font-bold uppercase tracking-wider">
-              Directory & Trust Index
+            <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] font-bold uppercase tracking-wider interactive-badge font-mono">
+              Directory
             </span>
             <span className="text-slate-500 text-xs">•</span>
-            <span className="text-slate-400 text-xs">Phase 4 Enterprise UX</span>
+            <span className="text-slate-400 text-xs font-mono">Continuous Trust Index</span>
           </div>
-          <h1 className="text-2xl font-black text-white mt-1">Supplier 360 Registry</h1>
+          <h1 className="text-2xl font-black text-white mt-1">Suppliers</h1>
           <p className="text-xs text-slate-400">
-            Real-time audit registry of all 20 Tier-1, Tier-2, and Tier-3 vendors across global operations. Click any supplier to view their 360° compliance dossier.
+            Multi-tier audit registry with continuous trust scoring and compliance dossiers.
           </p>
         </div>
 
         <div className="flex items-center space-x-2">
-          <div className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300 flex items-center space-x-1.5">
+          <div className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300 flex items-center space-x-1.5 card-hover">
             <ShieldCheck className="h-4 w-4 text-emerald-400" />
             <span>Active Suppliers: <strong>{suppliers.length}</strong></span>
           </div>

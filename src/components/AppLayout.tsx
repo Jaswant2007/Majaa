@@ -6,7 +6,7 @@ import Topbar from "./Topbar";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex bg-slate-950 text-slate-100">
+    <div className="min-h-screen flex" style={{ background: "var(--color-body-bg)", color: "var(--text-primary)" }}>
       <Sidebar />
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <Topbar />

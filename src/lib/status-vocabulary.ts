@@ -22,43 +22,43 @@ export interface StatusBadgeConfig {
 export const STATUS_BADGE_CONFIGS: Record<StatusVocabulary, StatusBadgeConfig> = {
   VERIFIED: {
     label: "VERIFIED",
-    classes: "bg-emerald-500/15 text-emerald-300 border-emerald-500/40",
-    dotColor: "bg-emerald-400",
+    classes: "bg-tertiary/15 text-tertiary border-tertiary/40",
+    dotColor: "bg-tertiary",
   },
   COMPLIANT: {
     label: "COMPLIANT",
-    classes: "bg-emerald-500/15 text-emerald-300 border-emerald-500/40",
-    dotColor: "bg-emerald-400",
+    classes: "bg-tertiary/15 text-tertiary border-tertiary/40",
+    dotColor: "bg-tertiary",
   },
   "ACTION REQUIRED": {
     label: "ACTION REQUIRED",
-    classes: "bg-amber-500/15 text-amber-300 border-amber-500/40",
-    dotColor: "bg-amber-400",
+    classes: "bg-accent/15 text-accent border-accent/40",
+    dotColor: "bg-accent",
   },
   "UNDER REVIEW": {
     label: "UNDER REVIEW",
-    classes: "bg-cyan-500/15 text-cyan-300 border-cyan-500/40",
-    dotColor: "bg-cyan-400",
+    classes: "bg-tertiary/15 text-tertiary border-tertiary/40",
+    dotColor: "bg-tertiary",
   },
   "HIGH RISK": {
     label: "HIGH RISK",
-    classes: "bg-rose-500/15 text-rose-300 border-rose-500/40",
-    dotColor: "bg-rose-400",
+    classes: "bg-accent/20 text-accent border-accent/50",
+    dotColor: "bg-accent",
   },
   EXPIRED: {
     label: "EXPIRED",
-    classes: "bg-purple-500/15 text-purple-300 border-purple-500/40",
-    dotColor: "bg-purple-400",
+    classes: "bg-accent/20 text-accent border-accent/50",
+    dotColor: "bg-accent",
   },
   STALE: {
     label: "STALE",
-    classes: "bg-orange-500/15 text-orange-300 border-orange-500/40",
-    dotColor: "bg-orange-400",
+    classes: "bg-accent/15 text-accent border-accent/40",
+    dotColor: "bg-accent",
   },
   SUSPICIOUS: {
     label: "SUSPICIOUS",
-    classes: "bg-rose-500/20 text-rose-200 border-rose-500/50",
-    dotColor: "bg-rose-500",
+    classes: "bg-accent/25 text-accent border-accent/60",
+    dotColor: "bg-accent",
   },
 };
 

@@ -22,13 +22,15 @@ export default function AuditLedgerPage() {
       <div className="flex items-center justify-between pb-2 border-b border-slate-800">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] font-bold uppercase">
-              Verifiable Disclosure Trail
+            <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] font-bold uppercase interactive-badge font-mono">
+              Audit Trail
             </span>
+            <span className="text-slate-500 text-xs">•</span>
+            <span className="text-slate-400 text-xs font-mono">SHA-256 Hash Chained</span>
           </div>
-          <h1 className="text-2xl font-black text-white mt-1">Cryptographic ESG Audit Ledger</h1>
+          <h1 className="text-2xl font-black text-white mt-1">Audit Ledger</h1>
           <p className="text-xs text-slate-400">
-            Rule 8: Never silently overwrite supplier data. Every state mutation produces an immutable SHA-256 audit entry.
+            Immutable SHA-256 hash-chained ledger verifying all state mutations and disclosures.
           </p>
         </div>
       </div>

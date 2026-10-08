@@ -30,10 +30,10 @@ interface SubmissionPortalProps {
 const DEMO_PRESETS = [
   {
     id: "clean_apex",
-    title: "1. ✅ Good Case: Clean Electric Freight (Apex Global)",
+    title: "Apex Global — Clean Electric Freight",
     desc: "Apex Global BEV Electric HGV with accredited TÜV ISO-14064 cert.",
-    filename: "demo-manifest-clean-apex.txt",
-    badge: "CLEAN GREEN",
+    filename: "manifest-apex-bev.txt",
+    badge: "VERIFIED GREEN",
     badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
     supplierCode: "NL-KVK-88491021",
     rawContent: `================================================================================
@@ -67,10 +67,10 @@ Declaration:       Primary activity data verified under EN 16258 / GLEC Framewor
   },
   {
     id: "expired_cert",
-    title: "2. ⚠️ Problem Case 1: Expired Certificate (Trans-Eurasia)",
+    title: "Trans-Eurasia — Expired Certificate Haulage",
     desc: "Heavy diesel road haulage referencing certificate expired on 2024-02-01.",
-    filename: "demo-manifest-expired-cert.txt",
-    badge: "EXPIRED CERT",
+    filename: "manifest-transeurasia-freight.txt",
+    badge: "AUDIT REQUIRED",
     badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/30",
     supplierCode: "PL-KRS-0000918273",
     rawContent: `================================================================================
@@ -104,10 +104,10 @@ Declaration:       Trans-Eurasia self-declaration (Uncertified freight).
   },
   {
     id: "supplier_mismatch",
-    title: "3. 🚨 Problem Case 2: Supplier Mismatch & Sanctions (Katanga)",
+    title: "Katanga Syndicate — Sanctioned Entity Dispatch",
     desc: "Shipper declares sanctioned Katanga entity under another account.",
-    filename: "demo-manifest-supplier-mismatch.txt",
-    badge: "IDENTITY MISMATCH",
+    filename: "manifest-katanga-dispatch.txt",
+    badge: "SANCTIONS HIT",
     badgeColor: "bg-rose-500/20 text-rose-300 border-rose-500/30",
     supplierCode: "PL-KRS-0000918273",
     rawContent: `================================================================================
@@ -255,13 +255,13 @@ export default function SubmissionPortal({ onSubmissionComplete, suppliers: init
           </div>
           <div>
             <h2 className="text-base font-bold text-white flex items-center space-x-2">
-              <span>Zero-Trust Judging Demo Pipeline</span>
+              <span>Zero-Trust Ingestion Pipeline</span>
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
                 14 ATOMIC STEPS
               </span>
             </h2>
             <p className="text-xs text-slate-400">
-              Active Session: <strong className="text-emerald-300">{roleLabel}</strong>. Full forensic pipeline with idempotency, cross-field verification, and real-time badge recalculation.
+              Active Session: <strong className="text-emerald-300">{roleLabel}</strong>. Cryptographic verification, cross-field validation, and real-time badge updates.
             </p>
           </div>
         </div>
@@ -269,7 +269,7 @@ export default function SubmissionPortal({ onSubmissionComplete, suppliers: init
         <button
           onClick={handleRunPipeline}
           disabled={isSubmitting}
-          className={`px-5 py-2.5 rounded-xl font-bold text-xs tracking-wide uppercase transition flex items-center justify-center space-x-2 shadow-lg ${
+          className={`px-5 py-2.5 rounded-xl font-bold text-xs tracking-wide uppercase transition flex items-center justify-center space-x-2 shadow-lg hover:-translate-y-0.5 active:translate-y-0 ${
             isSubmitting
               ? "bg-slate-800 text-slate-500 cursor-not-allowed"
               : "bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 shadow-emerald-500/20 ring-1 ring-emerald-400/50"
@@ -283,7 +283,7 @@ export default function SubmissionPortal({ onSubmissionComplete, suppliers: init
           ) : (
             <>
               <Play className="h-4 w-4 fill-slate-950" />
-              <span>Run Judging Demo Pipeline</span>
+              <span>Execute Ingestion Pipeline</span>
             </>
           )}
         </button>
@@ -292,14 +292,14 @@ export default function SubmissionPortal({ onSubmissionComplete, suppliers: init
       {/* Preset Demo Document Selector */}
       <div>
         <label className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">
-          Select Verified Demo Scenario (from /demo-docs):
+          Select Consignment Manifest:
         </label>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {DEMO_PRESETS.map((p) => (
             <div
               key={p.id}
               onClick={() => handleSelectPreset(p)}
-              className={`p-3.5 rounded-xl border text-left cursor-pointer transition ${
+              className={`p-3.5 rounded-xl border text-left cursor-pointer transition card-hover ${
                 selectedPreset.id === p.id
                   ? "bg-slate-900 border-emerald-500/80 ring-1 ring-emerald-500/50 shadow-lg shadow-emerald-500/10"
                   : "bg-slate-950/60 border-slate-800 hover:border-slate-700"
@@ -323,7 +323,7 @@ export default function SubmissionPortal({ onSubmissionComplete, suppliers: init
         <div className="flex items-center justify-between mb-2">
           <label className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center space-x-1.5">
             <Layers className="h-3.5 w-3.5 text-cyan-400" />
-            <span>Live Server-Side Verification Stepper (14 Stages)</span>
+            <span>Verification Stepper (14 Stages)</span>
           </label>
           <span className="text-[11px] font-mono text-slate-400">
             Progress: {currentStepIndex} / 14 Completed

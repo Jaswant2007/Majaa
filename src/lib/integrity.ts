@@ -2,6 +2,7 @@ import crypto from "crypto";
 import { prisma } from "./db";
 import { calculateFreightScope3Emissions } from "./calculator";
 import { ManifestExtraction, CertificateExtraction } from "./schemas";
+import { logAudit } from "./audit-ledger";
 
 export interface VerificationCheckResult {
   passed: boolean;
@@ -180,7 +181,7 @@ export async function executeDocumentVerificationPipeline(params: {
     });
 
     // 5. ACID TRANSACTION EXECUTION (Rule 7)
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx: any) => {
       // Step A: Update Document record
       const updatedDoc = await tx.document.update({
         where: { id: documentId },
@@ -192,9 +193,22 @@ export async function executeDocumentVerificationPipeline(params: {
         },
       });
 
-      // Step B: Record Shipment
-      const shipment = await tx.shipment.create({
-        data: {
+      // Step B: Record Shipment (Idempotent upsert for repeat demo runs)
+      const shipment = await tx.shipment.upsert({
+        where: { manifestId: manifest.manifestId },
+        update: {
+          supplierId: supplier.id,
+          documentId,
+          origin: manifest.origin,
+          destination: manifest.destination,
+          distanceKm: manifest.distanceKm,
+          weightTonnes: manifest.weightTonnes,
+          transportMode: manifest.transportMode,
+          fuelType: manifest.fuelType,
+          carrierName: manifest.carrierName || "Dedicated Fleet",
+          status: finalDocVerificationStatus === "VERIFIED" ? "VERIFIED" : "FLAGGED",
+        },
+        create: {
           supplierId: supplier.id,
           documentId,
           manifestId: manifest.manifestId,
@@ -256,20 +270,18 @@ export async function executeDocumentVerificationPipeline(params: {
         },
       });
 
-      // Step F: Append Audit Event
-      const auditEvent = await tx.auditEvent.create({
-        data: {
-          actor: actorRole,
-          action: finalDocVerificationStatus === "VERIFIED" ? "VERIFIED" : "FLAGGED",
-          entityType: "DOCUMENT",
-          entityId: documentId,
-          previousValue: JSON.stringify({ trustScore: supplier.trustScore, status: supplier.status }),
-          newValue: JSON.stringify({ trustScore: newScore, status: newStatus }),
-          source: "ZERO_TRUST_PIPELINE",
-          reason: `${calcResult.deterministicAuditLog}. Anomalies: ${
-            anomalyFindings.length === 0 ? "None" : anomalyFindings.map((a) => a.whatHappened).join("; ")
-          }`,
-        },
+      // Step F: Append Cryptographically Chained Audit Event
+      const auditEvent = await logAudit(tx, {
+        actor: actorRole,
+        action: finalDocVerificationStatus === "VERIFIED" ? "VERIFIED" : "FLAGGED",
+        entityType: "DOCUMENT",
+        entityId: documentId,
+        previousValue: JSON.stringify({ trustScore: supplier.trustScore, status: supplier.status }),
+        newValue: JSON.stringify({ trustScore: newScore, status: newStatus }),
+        source: "ZERO_TRUST_PIPELINE",
+        reason: `${calcResult.deterministicAuditLog}. Anomalies: ${
+          anomalyFindings.length === 0 ? "None" : anomalyFindings.map((a) => a.whatHappened).join("; ")
+        }`,
       });
 
       return {
@@ -299,7 +311,7 @@ export async function executeDocumentVerificationPipeline(params: {
     const certData = extractedData as CertificateExtraction;
     const isExpired = new Date(certData.expiryDate) < new Date();
 
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx: any) => {
       const updatedDoc = await tx.document.update({
         where: { id: documentId },
         data: {
@@ -322,15 +334,13 @@ export async function executeDocumentVerificationPipeline(params: {
         },
       });
 
-      const auditEvent = await tx.auditEvent.create({
-        data: {
-          actor: actorRole,
-          action: isExpired ? "REJECTED" : "VERIFIED",
-          entityType: "CERTIFICATE",
-          entityId: cert.id,
-          source: "ZERO_TRUST_PIPELINE",
-          reason: `Certificate ${certData.certNumber} registered with status ${cert.status}`,
-        },
+      const auditEvent = await logAudit(tx, {
+        actor: actorRole,
+        action: isExpired ? "REJECTED" : "VERIFIED",
+        entityType: "CERTIFICATE",
+        entityId: cert.id,
+        source: "ZERO_TRUST_PIPELINE",
+        reason: `Certificate ${certData.certNumber} registered with status ${cert.status}`,
       });
 
       return {

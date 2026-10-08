@@ -90,20 +90,20 @@ export default function ExecutiveDashboard() {
   }, [queryClient]);
 
   const kpis = statsData?.kpis || {
-    totalSuppliers: 20,
-    tier1Count: 8,
-    tier2Count: 6,
-    tier3Count: 6,
-    verifiedSuppliersCount: 16,
-    unverifiedSuppliersCount: 4,
-    highRiskSuppliersCount: 2,
-    actionRequiredCount: 3,
-    totalScope3Kg: 342910,
-    totalScope3Tonnes: 342.91,
-    verifiedScope3Tonnes: 289.4,
-    unverifiedScope3Tonnes: 53.51,
-    expiringCertsCount: 2,
-    suspiciousDocsCount: 1,
+    totalSuppliers: 0,
+    tier1Count: 0,
+    tier2Count: 0,
+    tier3Count: 0,
+    verifiedSuppliersCount: 0,
+    unverifiedSuppliersCount: 0,
+    highRiskSuppliersCount: 0,
+    actionRequiredCount: 0,
+    totalScope3Kg: 0,
+    totalScope3Tonnes: 0,
+    verifiedScope3Tonnes: 0,
+    unverifiedScope3Tonnes: 0,
+    expiringCertsCount: 0,
+    suspiciousDocsCount: 0,
   };
 
   const charts = statsData?.charts || {
@@ -118,11 +118,11 @@ export default function ExecutiveDashboard() {
   const suppliers = suppliersData?.suppliers || [];
 
   const PIE_COLORS: Record<string, string> = {
-    COMPLIANT: "#10b981",
-    "ACTION REQUIRED": "#f59e0b",
-    "UNDER REVIEW": "#06b6d4",
-    "HIGH RISK": "#ef4444",
-    EXPIRED: "#a855f7",
+    COMPLIANT: "var(--color-tertiary)",
+    "ACTION REQUIRED": "var(--color-accent)",
+    "UNDER REVIEW": "var(--color-tertiary)",
+    "HIGH RISK": "var(--color-accent)",
+    EXPIRED: "var(--color-accent)",
   };
 
   return (
@@ -131,32 +131,32 @@ export default function ExecutiveDashboard() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800 gap-3">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold uppercase tracking-wider">
+            <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-bold uppercase tracking-wider interactive-badge">
               ESG Command Center
             </span>
             <span className="text-slate-500 text-xs">•</span>
-            <span className="text-slate-300 text-xs font-medium">Logged in as {roleLabel}</span>
+            <span className="text-slate-300 text-xs font-medium">{roleLabel}</span>
             <span className="text-slate-500 text-xs">•</span>
             <span className="flex items-center space-x-1 text-[11px] text-emerald-400 font-mono">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span>LIVE SSE ACTIVE</span>
+              <span>LIVE LEDGER</span>
             </span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-white mt-1 tracking-tight">
-            Executive ESG & Scope-3 Supply Chain Dashboard
+            Dashboard
           </h1>
           <p className="text-xs text-slate-400">
-            Real-time audit dashboard backed by deterministic Scope-3 carbon math and cryptographic audit ledger.
+            Real-time Scope-3 emissions, vendor verification, and cryptographic audit ledger.
           </p>
         </div>
 
         <div className="flex items-center space-x-2">
           <button
             onClick={() => setShowLiveUpload(!showLiveUpload)}
-            className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold text-xs flex items-center space-x-1.5 shadow-lg shadow-emerald-950/40 transition"
+            className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 hover:-translate-y-0.5 active:translate-y-0 text-slate-950 font-bold text-xs flex items-center space-x-1.5 shadow-lg shadow-emerald-950/40 transition duration-200"
           >
             <Zap className="h-3.5 w-3.5" />
-            <span>{showLiveUpload ? "Hide Judging Portal" : "Show Judging Portal"}</span>
+            <span>{showLiveUpload ? "Close Ingest Panel" : "Quick Ingest"}</span>
           </button>
         </div>
       </div>
@@ -168,11 +168,11 @@ export default function ExecutiveDashboard() {
             <div className="flex items-center space-x-2">
               <Sparkles className="h-4 w-4 text-emerald-400" />
               <h2 className="text-sm font-bold text-white">
-                Live 3-Minute Judging Demo: Zero-Trust Document Pipeline
+                Consignment Verification Pipeline
               </h2>
             </div>
             <span className="text-[10px] font-mono text-emerald-400 font-bold uppercase">
-              Live State Mutation
+              Zero-Trust Ingestion
             </span>
           </div>
           <SubmissionPortal />
@@ -182,10 +182,10 @@ export default function ExecutiveDashboard() {
       {/* 8 KPI CARDS GRID */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
         {/* KPI 1: Total Suppliers */}
-        <div className="glass-panel p-4 rounded-xl border border-slate-800 relative overflow-hidden">
+        <div className={`glass-panel p-4 rounded-xl border border-slate-800 relative overflow-hidden card-hover group ${isLoading ? "animate-shimmer" : ""}`}>
           <div className="flex items-center justify-between text-slate-400 mb-1">
             <span className="text-[10px] font-bold uppercase tracking-wider">Total Suppliers</span>
-            <Building2 className="h-4 w-4 text-emerald-400" />
+            <Building2 className="h-4 w-4 text-emerald-400 group-hover:scale-110 transition-transform" />
           </div>
           <div className="text-2xl font-black text-white font-mono">{kpis.totalSuppliers}</div>
           <p className="text-[10px] font-mono text-slate-400 mt-1">
@@ -196,49 +196,49 @@ export default function ExecutiveDashboard() {
         </div>
 
         {/* KPI 2: Verified vs Unverified */}
-        <div className="glass-panel p-4 rounded-xl border border-slate-800 relative overflow-hidden">
+        <div className={`glass-panel p-4 rounded-xl border border-slate-800 relative overflow-hidden card-hover group ${isLoading ? "animate-shimmer" : ""}`}>
           <div className="flex items-center justify-between text-slate-400 mb-1">
-            <span className="text-[10px] font-bold uppercase tracking-wider">Verified Standing</span>
-            <ShieldCheck className="h-4 w-4 text-emerald-400" />
+            <span className="text-[10px] font-bold uppercase tracking-wider">Verified Vendors</span>
+            <ShieldCheck className="h-4 w-4 text-emerald-400 group-hover:scale-110 transition-transform" />
           </div>
           <div className="text-2xl font-black text-emerald-400 font-mono">
             {kpis.verifiedSuppliersCount}{" "}
             <span className="text-xs text-slate-400 font-normal">/ {kpis.totalSuppliers}</span>
           </div>
           <p className="text-[10px] font-mono text-slate-400 mt-1">
-            Unverified: <strong className="text-amber-400">{kpis.unverifiedSuppliersCount}</strong> vendors
+            Pending: <strong className="text-amber-400">{kpis.unverifiedSuppliersCount}</strong> vendors
           </p>
         </div>
 
         {/* KPI 3: High-Risk Suppliers */}
-        <div className="glass-panel p-4 rounded-xl border border-slate-800 relative overflow-hidden">
+        <div className={`glass-panel p-4 rounded-xl border border-slate-800 relative overflow-hidden card-hover group ${isLoading ? "animate-shimmer" : ""}`}>
           <div className="flex items-center justify-between text-slate-400 mb-1">
-            <span className="text-[10px] font-bold uppercase tracking-wider">High Risk Entities</span>
-            <ShieldAlert className="h-4 w-4 text-rose-400" />
+            <span className="text-[10px] font-bold uppercase tracking-wider">High Risk</span>
+            <ShieldAlert className="h-4 w-4 text-rose-400 group-hover:scale-110 transition-transform" />
           </div>
           <div className="text-2xl font-black text-rose-400 font-mono">{kpis.highRiskSuppliersCount}</div>
           <p className="text-[10px] font-mono text-slate-400 mt-1">
-            Trust score &lt; 70 or Sanctioned
+            Score &lt; 70 or Sanctioned
           </p>
         </div>
 
         {/* KPI 4: Action Required */}
-        <div className="glass-panel p-4 rounded-xl border border-slate-800 relative overflow-hidden">
+        <div className={`glass-panel p-4 rounded-xl border border-slate-800 relative overflow-hidden card-hover group ${isLoading ? "animate-shimmer" : ""}`}>
           <div className="flex items-center justify-between text-slate-400 mb-1">
-            <span className="text-[10px] font-bold uppercase tracking-wider">Action Required</span>
-            <AlertTriangle className="h-4 w-4 text-amber-400" />
+            <span className="text-[10px] font-bold uppercase tracking-wider">Action Needed</span>
+            <AlertTriangle className="h-4 w-4 text-amber-400 group-hover:scale-110 transition-transform" />
           </div>
           <div className="text-2xl font-black text-amber-400 font-mono">{kpis.actionRequiredCount}</div>
           <p className="text-[10px] font-mono text-slate-400 mt-1">
-            Awaiting compliance adjudication
+            Pending review
           </p>
         </div>
 
         {/* KPI 5: Total Scope-3 Footprint */}
-        <div className="glass-panel p-4 rounded-xl border border-slate-800 relative overflow-hidden">
+        <div className={`glass-panel p-4 rounded-xl border border-slate-800 relative overflow-hidden card-hover group ${isLoading ? "animate-shimmer" : ""}`}>
           <div className="flex items-center justify-between text-slate-400 mb-1">
             <span className="text-[10px] font-bold uppercase tracking-wider">Total Scope-3</span>
-            <CloudRain className="h-4 w-4 text-cyan-400" />
+            <CloudRain className="h-4 w-4 text-cyan-400 group-hover:scale-110 transition-transform" />
           </div>
           <div className="text-2xl font-black text-white font-mono">
             {kpis.totalScope3Tonnes} <span className="text-xs text-slate-400 font-normal">t CO₂e</span>
@@ -249,40 +249,40 @@ export default function ExecutiveDashboard() {
         </div>
 
         {/* KPI 6: At-Risk Emissions */}
-        <div className="glass-panel p-4 rounded-xl border border-slate-800 relative overflow-hidden">
+        <div className={`glass-panel p-4 rounded-xl border border-slate-800 relative overflow-hidden card-hover group ${isLoading ? "animate-shimmer" : ""}`}>
           <div className="flex items-center justify-between text-slate-400 mb-1">
-            <span className="text-[10px] font-bold uppercase tracking-wider">At-Risk Emissions</span>
-            <Flame className="h-4 w-4 text-orange-400" />
+            <span className="text-[10px] font-bold uppercase tracking-wider">At-Risk</span>
+            <Flame className="h-4 w-4 text-orange-400 group-hover:scale-110 transition-transform" />
           </div>
           <div className="text-2xl font-black text-orange-400 font-mono">
             {kpis.unverifiedScope3Tonnes} <span className="text-xs text-slate-400 font-normal">t CO₂e</span>
           </div>
           <p className="text-[10px] font-mono text-slate-400 mt-1">
-            Unverified freight activity
+            Unverified activity
           </p>
         </div>
 
         {/* KPI 7: Expiring Certificates */}
-        <div className="glass-panel p-4 rounded-xl border border-slate-800 relative overflow-hidden">
+        <div className={`glass-panel p-4 rounded-xl border border-slate-800 relative overflow-hidden card-hover group ${isLoading ? "animate-shimmer" : ""}`}>
           <div className="flex items-center justify-between text-slate-400 mb-1">
             <span className="text-[10px] font-bold uppercase tracking-wider">Expiring Certs</span>
-            <Award className="h-4 w-4 text-purple-400" />
+            <Award className="h-4 w-4 text-purple-400 group-hover:scale-110 transition-transform" />
           </div>
           <div className="text-2xl font-black text-purple-400 font-mono">{kpis.expiringCertsCount}</div>
           <p className="text-[10px] font-mono text-slate-400 mt-1">
-            Expiring within 30 days
+            Next 30 days
           </p>
         </div>
 
         {/* KPI 8: Suspicious Documents */}
-        <div className="glass-panel p-4 rounded-xl border border-slate-800 relative overflow-hidden">
+        <div className={`glass-panel p-4 rounded-xl border border-slate-800 relative overflow-hidden card-hover group ${isLoading ? "animate-shimmer" : ""}`}>
           <div className="flex items-center justify-between text-slate-400 mb-1">
             <span className="text-[10px] font-bold uppercase tracking-wider">Suspicious Docs</span>
-            <FileText className="h-4 w-4 text-rose-400" />
+            <FileText className="h-4 w-4 text-rose-400 group-hover:scale-110 transition-transform" />
           </div>
           <div className="text-2xl font-black text-rose-400 font-mono">{kpis.suspiciousDocsCount}</div>
           <p className="text-[10px] font-mono text-slate-400 mt-1">
-            Flagged or low confidence
+            Flagged for review
           </p>
         </div>
       </div>
@@ -290,18 +290,18 @@ export default function ExecutiveDashboard() {
       {/* CHARTS SECTION */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Left: Emissions Trend Area Chart */}
-        <div className="lg:col-span-8 glass-panel p-5 rounded-2xl space-y-4">
+        <div className="lg:col-span-8 glass-panel p-5 rounded-2xl space-y-4 card-hover">
           <div className="flex items-center justify-between pb-2 border-b border-slate-800">
             <div>
               <h3 className="text-sm font-bold text-white flex items-center space-x-2">
                 <TrendingUp className="h-4 w-4 text-emerald-400" />
-                <span>Scope-3 Emissions Trajectory & Verification Trend</span>
+                <span>Scope-3 Trajectory</span>
               </h3>
               <p className="text-[11px] text-slate-400">
-                Verified primary activity data vs unverified/flagged Scope-3 emissions (tonnes CO₂e).
+                Verified primary activity vs unverified emissions (tonnes CO₂e).
               </p>
             </div>
-            <span className="text-[10px] font-mono text-slate-400">Monthly Series</span>
+            <span className="text-[10px] font-mono text-slate-400">Monthly</span>
           </div>
 
           <div className="h-64 w-full">
@@ -309,25 +309,25 @@ export default function ExecutiveDashboard() {
               <AreaChart data={charts.emissionsTrend}>
                 <defs>
                   <linearGradient id="colorVerified" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.4} />
-                    <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                    <stop offset="5%" stopColor="var(--color-tertiary)" stopOpacity={0.4} />
+                    <stop offset="95%" stopColor="var(--color-tertiary)" stopOpacity={0} />
                   </linearGradient>
                   <linearGradient id="colorAtRisk" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.4} />
-                    <stop offset="95%" stopColor="#f59e0b" stopOpacity={0} />
+                    <stop offset="5%" stopColor="var(--color-accent)" stopOpacity={0.4} />
+                    <stop offset="95%" stopColor="var(--color-accent)" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                <XAxis dataKey="month" stroke="#64748b" fontSize={11} />
-                <YAxis stroke="#64748b" fontSize={11} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
+                <XAxis dataKey="month" stroke="var(--text-muted)" fontSize={11} />
+                <YAxis stroke="var(--text-muted)" fontSize={11} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: "#0f172a", borderColor: "#334155", borderRadius: 8, fontSize: 12 }}
+                  contentStyle={{ backgroundColor: "var(--surface-card)", borderColor: "var(--border-color)", borderRadius: 8, fontSize: 12, color: "var(--text-primary)" }}
                 />
                 <Area
                   type="monotone"
                   dataKey="verified"
                   name="Verified Scope-3"
-                  stroke="#10b981"
+                  stroke="var(--color-tertiary)"
                   fillOpacity={1}
                   fill="url(#colorVerified)"
                 />
@@ -335,7 +335,7 @@ export default function ExecutiveDashboard() {
                   type="monotone"
                   dataKey="atRisk"
                   name="At-Risk Emissions"
-                  stroke="#f59e0b"
+                  stroke="var(--color-accent)"
                   fillOpacity={1}
                   fill="url(#colorAtRisk)"
                 />
@@ -345,13 +345,13 @@ export default function ExecutiveDashboard() {
         </div>
 
         {/* Right: Compliance Status Pie Chart */}
-        <div className="lg:col-span-4 glass-panel p-5 rounded-2xl space-y-4">
+        <div className="lg:col-span-4 glass-panel p-5 rounded-2xl space-y-4 card-hover">
           <div className="flex items-center justify-between pb-2 border-b border-slate-800">
             <h3 className="text-sm font-bold text-white flex items-center space-x-2">
               <ShieldCheck className="h-4 w-4 text-cyan-400" />
-              <span>Compliance Status Ratio</span>
+              <span>Compliance Ratio</span>
             </h3>
-            <span className="text-[10px] font-mono text-slate-400">Vendor Split</span>
+            <span className="text-[10px] font-mono text-slate-400">Distribution</span>
           </div>
 
           <div className="h-64 w-full flex items-center justify-center">
@@ -368,11 +368,11 @@ export default function ExecutiveDashboard() {
                   paddingAngle={4}
                 >
                   {charts.compliancePie.map((entry: any, index: number) => (
-                    <Cell key={`cell-${index}`} fill={PIE_COLORS[entry.name] || "#64748b"} />
+                    <Cell key={`cell-${index}`} fill={PIE_COLORS[entry.name] || "var(--text-muted)"} />
                   ))}
                 </Pie>
                 <Tooltip
-                  contentStyle={{ backgroundColor: "#0f172a", borderColor: "#334155", borderRadius: 8, fontSize: 11 }}
+                  contentStyle={{ backgroundColor: "var(--surface-card)", borderColor: "var(--border-color)", borderRadius: 8, fontSize: 11, color: "var(--text-primary)" }}
                 />
                 <Legend iconSize={8} wrapperStyle={{ fontSize: 10, paddingTop: 6 }} />
               </PieChart>
@@ -384,25 +384,25 @@ export default function ExecutiveDashboard() {
       {/* LOWER SECTION: RISK DISTRIBUTION & RECENT ALERTS */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Risk Distribution Bar Chart */}
-        <div className="lg:col-span-5 glass-panel p-5 rounded-2xl space-y-4">
+        <div className="lg:col-span-5 glass-panel p-5 rounded-2xl space-y-4 card-hover">
           <div className="flex items-center justify-between pb-2 border-b border-slate-800">
             <h3 className="text-sm font-bold text-white flex items-center space-x-2">
               <Layers className="h-4 w-4 text-teal-400" />
-              <span>Trust Score Risk Distribution</span>
+              <span>Risk Distribution</span>
             </h3>
-            <span className="text-[10px] font-mono text-slate-400">4 Risk Bands</span>
+            <span className="text-[10px] font-mono text-slate-400">Risk Bands</span>
           </div>
 
           <div className="h-56 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={charts.riskDistribution}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                <XAxis dataKey="range" stroke="#64748b" fontSize={10} />
-                <YAxis stroke="#64748b" fontSize={11} allowDecimals={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
+                <XAxis dataKey="range" stroke="var(--text-muted)" fontSize={10} />
+                <YAxis stroke="var(--text-muted)" fontSize={11} allowDecimals={false} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: "#0f172a", borderColor: "#334155", borderRadius: 8, fontSize: 11 }}
+                  contentStyle={{ backgroundColor: "var(--surface-card)", borderColor: "var(--border-color)", borderRadius: 8, fontSize: 11, color: "var(--text-primary)" }}
                 />
-                <Bar dataKey="count" name="Suppliers" fill="#10b981" radius={[4, 4, 0, 0]}>
+                <Bar dataKey="count" name="Suppliers" fill="var(--color-tertiary)" radius={[4, 4, 0, 0]}>
                   {charts.riskDistribution.map((entry: any, idx: number) => (
                     <Cell key={`bar-${idx}`} fill={entry.color} />
                   ))}
@@ -412,18 +412,18 @@ export default function ExecutiveDashboard() {
           </div>
         </div>
 
-        {/* Recent Forensic Alerts Feed */}
-        <div className="lg:col-span-7 glass-panel p-5 rounded-2xl space-y-3">
+        {/* Recent Alerts Feed */}
+        <div className="lg:col-span-7 glass-panel p-5 rounded-2xl space-y-3 card-hover">
           <div className="flex items-center justify-between pb-2 border-b border-slate-800">
             <h3 className="text-sm font-bold text-white flex items-center space-x-2">
               <AlertTriangle className="h-4 w-4 text-rose-400" />
-              <span>Recent Compliance & Risk Alerts</span>
+              <span>Recent Alerts</span>
             </h3>
             <a
               href="/alerts"
-              className="text-[11px] font-semibold text-rose-400 hover:text-rose-300 flex items-center space-x-1"
+              className="text-[11px] font-semibold text-rose-400 hover:text-rose-300 flex items-center space-x-1 hover:translate-x-0.5 transition-transform"
             >
-              <span>View All Alerts</span>
+              <span>View All</span>
               <ArrowRight className="h-3 w-3" />
             </a>
           </div>

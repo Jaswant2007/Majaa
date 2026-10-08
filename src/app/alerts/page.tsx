@@ -74,20 +74,20 @@ export default function RiskAlertCenterPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800 gap-3">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800 text-[10px] font-bold uppercase tracking-wider">
-              Forensic Anomaly Detection
+            <span className="px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800 text-[10px] font-bold uppercase tracking-wider interactive-badge font-mono">
+              Risk Monitor
             </span>
             <span className="text-slate-500 text-xs">•</span>
-            <span className="text-slate-400 text-xs">Phase 4 Risk Center</span>
+            <span className="text-slate-400 text-xs font-mono">Forensic Auditing</span>
           </div>
-          <h1 className="text-2xl font-black text-white mt-1">Risk & Forensic Alert Center</h1>
+          <h1 className="text-2xl font-black text-white mt-1">Alerts & Risk</h1>
           <p className="text-xs text-slate-400">
-            Rule 9: Explainable forensic anomalies. Each alert details What happened, Why it matters, Auditable evidence, and Remediation workflow.
+            Forensic anomalies, evidence traces, and corrective remediation workflows.
           </p>
         </div>
 
         <div className="flex items-center space-x-2">
-          <div className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300">
+          <div className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300 card-hover">
             Open Alerts: <strong className="text-rose-400">{alerts.filter((a: any) => a.status === "OPEN").length}</strong>
           </div>
         </div>
@@ -153,7 +153,7 @@ export default function RiskAlertCenterPage() {
             return (
               <div
                 key={alert.id}
-                className={`glass-panel p-5 rounded-2xl border transition-all ${
+                className={`glass-panel p-5 rounded-2xl border transition-all card-hover ${
                   isResolved
                     ? "border-slate-800/80 bg-slate-950/40 opacity-75"
                     : isCritical

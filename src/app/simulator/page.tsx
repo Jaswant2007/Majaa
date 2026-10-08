@@ -185,20 +185,20 @@ export default function CarbonSimulatorPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800 gap-3">
           <div>
             <div className="flex items-center space-x-2">
-              <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] font-bold uppercase tracking-wider font-mono">
-                Deterministic Scope-3 Engine
+              <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] font-bold uppercase tracking-wider font-mono interactive-badge">
+                Modeling
               </span>
               <span className="text-slate-500 text-xs">•</span>
-              <span className="text-slate-400 text-xs font-mono">Phase 6 Advanced Module</span>
+              <span className="text-slate-400 text-xs font-mono">DEFRA 2024 Engine</span>
             </div>
-            <h1 className="text-2xl font-black text-white mt-1">What-If Carbon Scenario Simulator</h1>
+            <h1 className="text-2xl font-black text-white mt-1">Carbon Simulator</h1>
             <p className="text-xs text-slate-400">
-              Model modal shifts and alternative low-carbon fuels using the exact DEFRA 2024 emission factor database.
+              Modal shift and low-carbon fuel scenario forecasting using certified emission factors.
             </p>
           </div>
 
           <div className="flex items-center space-x-2">
-            <span className="text-xs font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-800/80 px-3 py-1.5 rounded-xl">
+            <span className="text-xs font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-800/80 px-3 py-1.5 rounded-xl card-hover">
               Deterministic Fidelity: 100%
             </span>
           </div>
@@ -221,7 +221,7 @@ export default function CarbonSimulatorPage() {
                   weight: 20,
                 })
               }
-              className="p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-emerald-600 text-left transition space-y-1 group"
+              className="p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-emerald-600 text-left transition space-y-1 group card-hover"
             >
               <div className="flex items-center justify-between text-xs font-bold text-white group-hover:text-emerald-400">
                 <span>Air ✈️ → Sea 🚢</span>

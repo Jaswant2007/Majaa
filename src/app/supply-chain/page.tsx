@@ -26,20 +26,20 @@ export default function SupplyChainExplorerPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800 gap-3">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800 text-[10px] font-bold uppercase tracking-wider">
-              Multi-Tier Lineage
+            <span className="px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800 text-[10px] font-bold uppercase tracking-wider interactive-badge font-mono">
+              Lineage
             </span>
             <span className="text-slate-500 text-xs">•</span>
-            <span className="text-slate-400 text-xs">Phase 4 Interactive Topology</span>
+            <span className="text-slate-400 text-xs font-mono">Interactive Topology</span>
           </div>
-          <h1 className="text-2xl font-black text-white mt-1">Multi-Tier Supply Chain Explorer</h1>
+          <h1 className="text-2xl font-black text-white mt-1">Supply Chain</h1>
           <p className="text-xs text-slate-400">
-            Interactive React Flow lineage: Enterprise → Tier-1 → Tier-2 → Tier-3. Click any node to open its full 360° compliance profile.
+            Multi-tier supplier topology & lineage. Click any vendor node to inspect its compliance dossier.
           </p>
         </div>
 
         <div className="flex items-center space-x-2">
-          <div className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300">
+          <div className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300 card-hover">
             Entities in Lineage: <strong className="text-emerald-400">{suppliers.length}</strong>
           </div>
         </div>
